@@ -1,0 +1,553 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  ignorenonframetext,
+  aspectratio=169,
+  russian,
+  aspectratio=169]{beamer}
+\newif\ifbibliography
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolshorizontal
+% remove section numbering
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{section title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{subsection title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+
+\usefonttheme{serif} % use mainfont rather than sansfont for slide text
+\ifPDFTeX\else
+  % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
+  \setsansfont[]{DejaVu Sans}
+  \setmonofont[]{DejaVu Sans Mono}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+\usepackage{caption}
+% Make caption package work with longtable
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic,provide=*]{babel}
+\else
+\usepackage[bidi=default,provide=*]{babel}
+\fi
+\ifPDFTeX
+\else
+\babelfont{rm}[]{DejaVu Serif}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+\usepackage[]{csquotes}
+
+\IfFileExists{plex-otf.sty}{
+  %% Full TeXlive
+  % \usepackage[%
+  %   % math,
+  %   RM={Scale=0.94},SS={Scale=0.94},SScon={Scale=0.94},TT={Scale=MatchLowercase,FakeStretch=0.9},DefaultFeatures={Ligatures=Common}
+  % ]{plex-otf}
+}{
+  %% TinyTeX
+  \usepackage{libertine}
+}
+
+%%% Load theme
+% https://deic.uab.cat/~iblanes/beamer_gallery/
+\IfFileExists{beamerthemegotham.sty}{
+  %% Full TeXlive
+  \usetheme{gotham}
+  \gothamset{
+    numbering=totalpagenumber,
+    parttocframe default=off,
+    sectiontocframe default=off,
+    subsectiontocframe default=off,
+  }
+}{
+  %% TinyTeX
+  \usetheme{Madrid}
+}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Содержание}
+\else
+  \newcommand\contentsname{Содержание}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Список иллюстраций}
+\else
+  \newcommand\listfigurename{Список иллюстраций}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Список таблиц}
+\else
+  \newcommand\listtablename{Список таблиц}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Рисунок}
+\else
+  \newcommand\figurename{Рисунок}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Таблица}
+\else
+  \newcommand\tablename{Таблица}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Список}
+\newcommand*\listoflistings{\listof{codelisting}{Листинги}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Выполнение лабораторной работы №3},
+  pdfauthor={Карпухин Клим},
+  pdflang={ru-RU},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Выполнение лабораторной работы №3}
+\subtitle{Оформление отчётов с помощью легковесного языка разметки
+Markdown}
+\author{Карпухин Клим}
+\date{2026-03-01}
+
+\begin{document}
+\frame{\titlepage}
+
+
+\section{Содержание}\label{ux441ux43eux434ux435ux440ux436ux430ux43dux438ux435}
+
+\begin{frame}{Содержание}
+\begin{enumerate}[<+->]
+\tightlist
+\item
+  Информация о докладчике
+\item
+  Вводная часть и актуальность
+\item
+  Объект и предмет исследования
+\item
+  Научная новизна и практическая значимость
+\item
+  Цель и задачи
+\item
+  Материалы, методы и инструменты
+\item
+  Ход работы (этапы, скриншоты)
+\item
+  Результаты
+\item
+  Анализ и практическая значимость
+\item
+  Выводы
+\end{enumerate}
+\end{frame}
+
+\section{Информация}\label{ux438ux43dux444ux43eux440ux43cux430ux446ux438ux44f}
+
+\begin{frame}{Докладчик}
+\phantomsection\label{ux434ux43eux43aux43bux430ux434ux447ux438ux43a}
+\begin{columns}[c]
+\begin{column}{0.65\linewidth}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \textbf{Карпухин Клим}
+\item
+  Российский университет дружбы народов
+\item
+  Email:
+  \href{mailto:1032255580@rudn.ru}{\nolinkurl{1032255580@rudn.ru}}
+\item
+  Роли: студент (лабораторная работа по ОС/виртуализации)
+\end{itemize}
+\end{column}
+
+\begin{column}{0.35\linewidth}
+\includegraphics[width=0.9\linewidth,height=\textheight,keepaspectratio]{./image/dokladchik.png}
+\end{column}
+\end{columns}
+\end{frame}
+
+\section{Вводная
+часть}\label{ux432ux432ux43eux434ux43dux430ux44f-ux447ux430ux441ux442ux44c}
+
+\begin{frame}{Актуальность}
+\phantomsection\label{ux430ux43aux442ux443ux430ux43bux44cux43dux43eux441ux442ux44c}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Markdown --- один из самых популярных языков разметки для оформления
+  технической документации и отчётов.
+\item
+  Умение быстро и качественно оформлять отчёты необходимо в учебной и
+  научной деятельности.
+\item
+  Инструменты (pandoc) позволяют автоматически преобразовывать Markdown
+  в различные форматы (pdf, docx, html).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Объект и предмет исследования}
+\phantomsection\label{ux43eux431ux44aux435ux43aux442-ux438-ux43fux440ux435ux434ux43cux435ux442-ux438ux441ux441ux43bux435ux434ux43eux432ux430ux43dux438ux44f}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \textbf{Объект:} процесс оформления отчётов по лабораторным работам.
+\item
+  \textbf{Предмет:} язык разметки Markdown и инструменты его обработки
+  (Pandoc).
+\end{itemize}
+\end{frame}
+
+\section{Научная новизна и практическая
+значимость}\label{ux43dux430ux443ux447ux43dux430ux44f-ux43dux43eux432ux438ux437ux43dux430-ux438-ux43fux440ux430ux43aux442ux438ux447ux435ux441ux43aux430ux44f-ux437ux43dux430ux447ux438ux43cux43eux441ux442ux44c}
+
+\begin{frame}{Научная новизна}
+\phantomsection\label{ux43dux430ux443ux447ux43dux430ux44f-ux43dux43eux432ux438ux437ux43dux430}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Освоение современных инструментов автоматизации создания отчётов.
+\item
+  Применение подхода «единый источник» для генерации документов в разных
+  форматах.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Практическая значимость}
+\phantomsection\label{ux43fux440ux430ux43aux442ux438ux447ux435ux441ux43aux430ux44f-ux437ux43dux430ux447ux438ux43cux43eux441ux442ux44c}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Полученные навыки позволяют существенно ускорить подготовку отчётов по
+  другим дисциплинам.
+\item
+  Возможность создавать документы, которые легко конвертировать в
+  требуемый формат.
+\end{itemize}
+\end{frame}
+
+\section{Цель и
+задачи}\label{ux446ux435ux43bux44c-ux438-ux437ux430ux434ux430ux447ux438}
+
+\begin{frame}{Цель}
+\phantomsection\label{ux446ux435ux43bux44c}
+Научиться оформлять отчёты с помощью легковесного языка разметки
+Markdown.
+\end{frame}
+
+\begin{frame}{Задачи}
+\phantomsection\label{ux437ux430ux434ux430ux447ux438}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Подготовить отчёт по предыдущей лабораторной работе в формате
+  Markdown.
+\item
+  Скомпилировать отчёт в форматы pdf, docx и предоставить архив с
+  исходниками.
+\end{itemize}
+\end{frame}
+
+\section{Материалы и
+методы}\label{ux43cux430ux442ux435ux440ux438ux430ux43bux44b-ux438-ux43cux435ux442ux43eux434ux44b}
+
+\begin{frame}[fragile]{Материалы и методы}
+\phantomsection\label{ux43cux430ux442ux435ux440ux438ux430ux43bux44b-ux438-ux43cux435ux442ux43eux434ux44b-1}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \textbf{Инструменты:}
+
+  \begin{itemize}[<+->]
+  \tightlist
+  \item
+    Язык разметки \textbf{Markdown}.
+  \item
+    Конвертер документов \textbf{Pandoc}.
+  \item
+    Фильтры: \texttt{pandoc-crossref} для нумерации рисунков и формул.
+  \item
+    Система сборки \textbf{Make} (Makefile).
+  \item
+    Целевые форматы: \textbf{pdf} (через LaTeX) и \textbf{docx}.
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Ход работы --- оформление отчёта в Markdown
+(этапы)}\label{ux445ux43eux434-ux440ux430ux431ux43eux442ux44b-ux43eux444ux43eux440ux43cux43bux435ux43dux438ux435-ux43eux442ux447ux451ux442ux430-ux432-markdown-ux44dux442ux430ux43fux44b}
+
+\begin{frame}{Этап 1: Создание шаблона отчёта}
+\phantomsection\label{ux44dux442ux430ux43f-1-ux441ux43eux437ux434ux430ux43dux438ux435-ux448ux430ux431ux43bux43eux43dux430-ux43eux442ux447ux451ux442ux430}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Создание шаблона отчёта в Markdown с титульным листом, теоретическим
+  введением, ходом работы и выводами.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Этап 2: Вставка скриншотов}
+\phantomsection\label{ux44dux442ux430ux43f-2-ux432ux441ux442ux430ux432ux43aux430-ux441ux43aux440ux438ux43dux448ux43eux442ux43eux432}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Вставка скриншотов, демонстрирующих процесс выполнения лабораторной
+  работы.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Этап 3: Ответы на контрольные вопросы}
+\phantomsection\label{ux44dux442ux430ux43f-3-ux43eux442ux432ux435ux442ux44b-ux43dux430-ux43aux43eux43dux442ux440ux43eux43bux44cux43dux44bux435-ux432ux43eux43fux440ux43eux441ux44b}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Оформление ответов на контрольные вопросы в Markdown.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Этап 4: Компиляция отчёта}
+\phantomsection\label{ux44dux442ux430ux43f-4-ux43aux43eux43cux43fux438ux43bux44fux446ux438ux44f-ux43eux442ux447ux451ux442ux430}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Компиляция отчёта в pdf и docx с помощью Pandoc.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Этап 5: Автоматизация сборки}
+\phantomsection\label{ux44dux442ux430ux43f-5-ux430ux432ux442ux43eux43cux430ux442ux438ux437ux430ux446ux438ux44f-ux441ux431ux43eux440ux43aux438}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Автоматизация процесса с помощью Makefile.
+\end{itemize}
+\end{frame}
+
+\section{Базовые элементы
+Markdown}\label{ux431ux430ux437ux43eux432ux44bux435-ux44dux43bux435ux43cux435ux43dux442ux44b-markdown}
+
+\begin{frame}[fragile]{Основные конструкции}
+\phantomsection\label{ux43eux441ux43dux43eux432ux43dux44bux435-ux43aux43eux43dux441ux442ux440ux443ux43aux446ux438ux438}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \textbf{Заголовки:} \texttt{\#}, \texttt{\#\#}, \texttt{\#\#\#}
+\item
+  \textbf{Выделение текста:} \texttt{**жирный**}, \texttt{*курсив*},
+  \texttt{***жирный\ курсив***}
+\item
+  \textbf{Списки:} маркированные (\texttt{-}) и нумерованные
+  (\texttt{1.})
+\item
+  \textbf{Ссылки:} \texttt{{[}текст{]}(ссылка)}
+\item
+  \textbf{Вставка изображений:} \texttt{!{[}Подпись{]}(путь)}
+\item
+  \textbf{Формулы:} внутристрочные (\texttt{\$...\$}) и выключенные
+  (\texttt{\$\$...\$\$})
+\item
+  \textbf{Блоки кода:} с подсветкой синтаксиса
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Пример использования формул}
+\phantomsection\label{ux43fux440ux438ux43cux435ux440-ux438ux441ux43fux43eux43bux44cux437ux43eux432ux430ux43dux438ux44f-ux444ux43eux440ux43cux443ux43b}
+\[
+\sin^2 (x) + \cos^2 (x) = 1
+\] \{\#eq:eq:sin2+cos2\}
+
+Ссылка на формулу ({[}-@eq:eq:sin2+cos2{]}).
+\end{frame}
+
+\section{Скриншоты процесса
+выполнения}\label{ux441ux43aux440ux438ux43dux448ux43eux442ux44b-ux43fux440ux43eux446ux435ux441ux441ux430-ux432ux44bux43fux43eux43bux43dux435ux43dux438ux44f}
+
+\begin{frame}{Скриншоты отчёта (часть 1)}
+\phantomsection\label{ux441ux43aux440ux438ux43dux448ux43eux442ux44b-ux43eux442ux447ux451ux442ux430-ux447ux430ux441ux442ux44c-1}
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/1.png}
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/2.png}
+\end{frame}
+
+\begin{frame}{Скриншоты отчёта (часть 2)}
+\phantomsection\label{ux441ux43aux440ux438ux43dux448ux43eux442ux44b-ux43eux442ux447ux451ux442ux430-ux447ux430ux441ux442ux44c-2}
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/3.png}
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/4.png}
+\end{frame}
+
+\begin{frame}{Скриншоты отчёта (часть 3)}
+\phantomsection\label{ux441ux43aux440ux438ux43dux448ux43eux442ux44b-ux43eux442ux447ux451ux442ux430-ux447ux430ux441ux442ux44c-3}
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/5.png}
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/6.png}
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/7.png}
+\end{frame}
+
+\section{Результаты}\label{ux440ux435ux437ux443ux43bux44cux442ux430ux442ux44b}
+
+\begin{frame}[fragile]{Makefile для автоматизации сборки}
+\phantomsection\label{makefile-ux434ux43bux44f-ux430ux432ux442ux43eux43cux430ux442ux438ux437ux430ux446ux438ux438-ux441ux431ux43eux440ux43aux438}
+\begin{verbatim}
+FILES = $(patsubst %.md, %.docx, $(wildcard *.md))
+FILES += $(patsubst %.md, %.pdf, $(wildcard *.md))
+
+LATEX_FORMAT =
+
+FILTER = --filter pandoc-crossref
+
+%.docx: %.md
+pandoc "$<" $(FILTER) -o "$@"
+
+%.pdf: %.md
+pandoc "$<" $(LATEX_FORMAT) $(FILTER) -o "$@"
+
+all: $(FILES)
+@echo $(FILES)
+
+clean:
+rm -f $(FILES) *~
+\end{verbatim}
+\end{frame}
+
+\section{Анализ и практическая
+значимость}\label{ux430ux43dux430ux43bux438ux437-ux438-ux43fux440ux430ux43aux442ux438ux447ux435ux441ux43aux430ux44f-ux437ux43dux430ux447ux438ux43cux43eux441ux442ux44c}
+
+\begin{frame}{Анализ и практическая значимость}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Создан полноценный отчёт по предыдущей лабораторной работе в Markdown.
+\item
+  Освоены приёмы вставки изображений, формул, листингов.
+\item
+  Настроена автоматическая сборка отчёта в pdf и docx.
+\item
+  Получены навыки, необходимые для подготовки курсовых и дипломных
+  работ.
+\end{itemize}
+\end{frame}
+
+\section{Выводы}\label{ux432ux44bux432ux43eux434ux44b}
+
+\begin{frame}{Выводы}
+\phantomsection\label{ux432ux44bux432ux43eux434ux44b-1}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  В ходе лабораторной работы я научился оформлять отчёты с помощью языка
+  разметки Markdown.
+\item
+  Познакомился с возможностями Pandoc по конвертации Markdown-документов
+  в различные форматы.
+\item
+  Приобрёл опыт использования Makefile для автоматизации сборки.
+\item
+  Полученные компетенции будут полезны в дальнейшей учебной и научной
+  деятельности.
+\end{itemize}
+\end{frame}
+
+
+
+
+\end{document}
