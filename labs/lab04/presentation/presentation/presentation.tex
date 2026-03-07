@@ -1,0 +1,666 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  ignorenonframetext,
+  aspectratio=169,
+  russian,
+  aspectratio=169]{beamer}
+\newif\ifbibliography
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolshorizontal
+% remove section numbering
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{section title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{subsection title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+
+\usefonttheme{serif} % use mainfont rather than sansfont for slide text
+\ifPDFTeX\else
+  % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
+  \setsansfont[]{DejaVu Sans}
+  \setmonofont[]{DejaVu Sans Mono}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+\usepackage{caption}
+% Make caption package work with longtable
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic,provide=*]{babel}
+\else
+\usepackage[bidi=default,provide=*]{babel}
+\fi
+\ifPDFTeX
+\else
+\babelfont{rm}[]{DejaVu Serif}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+\usepackage[]{csquotes}
+
+\IfFileExists{plex-otf.sty}{
+  %% Full TeXlive
+  % \usepackage[%
+  %   % math,
+  %   RM={Scale=0.94},SS={Scale=0.94},SScon={Scale=0.94},TT={Scale=MatchLowercase,FakeStretch=0.9},DefaultFeatures={Ligatures=Common}
+  % ]{plex-otf}
+}{
+  %% TinyTeX
+  \usepackage{libertine}
+}
+
+%%% Load theme
+% https://deic.uab.cat/~iblanes/beamer_gallery/
+\IfFileExists{beamerthemegotham.sty}{
+  %% Full TeXlive
+  \usetheme{gotham}
+  \gothamset{
+    numbering=totalpagenumber,
+    parttocframe default=off,
+    sectiontocframe default=off,
+    subsectiontocframe default=off,
+  }
+}{
+  %% TinyTeX
+  \usetheme{Madrid}
+}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Содержание}
+\else
+  \newcommand\contentsname{Содержание}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Список иллюстраций}
+\else
+  \newcommand\listfigurename{Список иллюстраций}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Список таблиц}
+\else
+  \newcommand\listtablename{Список таблиц}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Рисунок}
+\else
+  \newcommand\figurename{Рисунок}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Таблица}
+\else
+  \newcommand\tablename{Таблица}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Список}
+\newcommand*\listoflistings{\listof{codelisting}{Листинги}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Выполнение лабораторной работы №4},
+  pdfauthor={Карпухин Клим},
+  pdflang={ru-RU},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Выполнение лабораторной работы №4}
+\subtitle{Продвинутое использование git}
+\author{Карпухин Клим}
+\date{2026-03-07}
+
+\begin{document}
+\frame{\titlepage}
+
+
+\section{Содержание}\label{ux441ux43eux434ux435ux440ux436ux430ux43dux438ux435}
+
+\begin{frame}{Содержание}
+\begin{enumerate}[<+->]
+\tightlist
+\item
+  Информация о докладчике
+\item
+  Вводная часть и актуальность
+\item
+  Объект и предмет исследования
+\item
+  Научная новизна и практическая значимость
+\item
+  Цель, гипотеза и задачи
+\item
+  Материалы, методы и инструменты
+\item
+  Ход работы (этапы, скриншоты)
+\item
+  Результаты и анализ
+\item
+  Выводы
+\end{enumerate}
+\end{frame}
+
+\section{Информация}\label{ux438ux43dux444ux43eux440ux43cux430ux446ux438ux44f}
+
+\begin{frame}{Докладчик}
+\phantomsection\label{ux434ux43eux43aux43bux430ux434ux447ux438ux43a}
+\begin{columns}[c]
+\begin{column}{0.65\linewidth}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \textbf{Карпухин Клим}
+\item
+  Российский университет дружбы народов
+\item
+  Email:
+  \href{mailto:1032255580@rudn.ru}{\nolinkurl{1032255580@rudn.ru}}
+\item
+  Роли: студент (лабораторная работа по ОС/виртуализации)
+\end{itemize}
+\end{column}
+
+\begin{column}{0.35\linewidth}
+\includegraphics[width=0.9\linewidth,height=\textheight,keepaspectratio]{./image/dokladchik.png}
+\end{column}
+\end{columns}
+\end{frame}
+
+\section{Вводная
+часть}\label{ux432ux432ux43eux434ux43dux430ux44f-ux447ux430ux441ux442ux44c}
+
+\begin{frame}{Актуальность}
+\phantomsection\label{ux430ux43aux442ux443ux430ux43bux44cux43dux43eux441ux442ux44c}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Современная разработка программного обеспечения требует чёткой
+  организации веток, релизов и истории изменений. Gitflow решает эту
+  задачу.
+\item
+  Семантическое версионирование и общепринятые коммиты облегчают
+  автоматизацию выпуска версий и генерации журналов изменений.
+\item
+  Владение такими инструментами делает процесс разработки прозрачным и
+  воспроизводимым, что важно и в учебных, и в реальных проектах.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Объект и предмет исследования}
+\phantomsection\label{ux43eux431ux44aux435ux43aux442-ux438-ux43fux440ux435ux434ux43cux435ux442-ux438ux441ux441ux43bux435ux434ux43eux432ux430ux43dux438ux44f}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \textbf{Объект:} процесс управления репозиторием программного проекта
+  с использованием системы контроля версий git.
+\item
+  \textbf{Предмет:} методология Gitflow, семантическое версионирование
+  (SemVer) и спецификация Conventional Commits, а также инструменты
+  commitizen и standard-changelog.
+\end{itemize}
+\end{frame}
+
+\section{Научная новизна и практическая
+значимость}\label{ux43dux430ux443ux447ux43dux430ux44f-ux43dux43eux432ux438ux437ux43dux430-ux438-ux43fux440ux430ux43aux442ux438ux447ux435ux441ux43aux430ux44f-ux437ux43dux430ux447ux438ux43cux43eux441ux442ux44c}
+
+\begin{frame}{Научная новизна}
+\phantomsection\label{ux43dux430ux443ux447ux43dux430ux44f-ux43dux43eux432ux438ux437ux43dux430}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Интеграция Gitflow, SemVer и Conventional Commits в единый
+  практический сценарий на учебном репозитории.
+\item
+  Использование стандартизированных сообщений коммитов как источника
+  данных для автоматической генерации CHANGELOG.
+\item
+  Формирование практических навыков, необходимых для внедрения
+  промышленного процесса релизов даже в небольших учебных проектах.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Практическая значимость работы}
+\phantomsection\label{ux43fux440ux430ux43aux442ux438ux447ux435ux441ux43aux430ux44f-ux437ux43dux430ux447ux438ux43cux43eux441ux442ux44c-ux440ux430ux431ux43eux442ux44b}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Освоенные подходы позволяют эффективно управлять ветками feature,
+  release и hotfix в реальных командах разработки.
+\item
+  Автоматическая генерация журналов изменений и релизов снижает
+  количество ручной работы и ошибок при подготовке версий.
+\item
+  Полученные навыки можно напрямую перенести в курсовые, дипломные и
+  практические проекты с использованием GitHub.
+\end{itemize}
+\end{frame}
+
+\section{Цель, гипотеза и
+задачи}\label{ux446ux435ux43bux44c-ux433ux438ux43fux43eux442ux435ux437ux430-ux438-ux437ux430ux434ux430ux447ux438}
+
+\begin{frame}{Цель}
+\phantomsection\label{ux446ux435ux43bux44c}
+Получить устойчивые навыки корректной работы с репозиториями git на
+основе методологии Gitflow и практик семантического версионирования и
+общепринятых коммитов.
+\end{frame}
+
+\begin{frame}{Гипотеза}
+\phantomsection\label{ux433ux438ux43fux43eux442ux435ux437ux430}
+Если применить Gitflow, SemVer и Conventional Commits в учебном
+репозитории, то процесс разработки и выпуска версий станет более
+структурированным и прозрачным.
+\end{frame}
+
+\begin{frame}{Задачи}
+\phantomsection\label{ux437ux430ux434ux430ux447ux438}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Установить и настроить инструменты git-flow, Node.js, pnpm, commitizen
+  и standard-changelog.
+\item
+  Создать и настроить репозиторий git-extended на GitHub.
+\item
+  Преобразовать репозиторий в репозиторий git-flow и настроить
+  conventional commits.
+\item
+  Реализовать практический сценарий: разработка новой функциональности и
+  выпуск релизов 1.0.0 и 1.2.3.
+\end{itemize}
+\end{frame}
+
+\section{Материалы и
+методы}\label{ux43cux430ux442ux435ux440ux438ux430ux43bux44b-ux438-ux43cux435ux442ux43eux434ux44b}
+
+\begin{frame}{Материалы и методы}
+\phantomsection\label{ux43cux430ux442ux435ux440ux438ux430ux43bux44b-ux438-ux43cux435ux442ux43eux434ux44b-1}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \textbf{Инструменты:}
+
+  \begin{itemize}[<+->]
+  \tightlist
+  \item
+    Система контроля версий \textbf{git}, расширение \textbf{git-flow}
+    для поддержки Gitflow Workflow.
+  \item
+    Платформа \textbf{GitHub} для хранения и публикации репозитория
+    git-extended.
+  \item
+    Среда \textbf{Node.js} и менеджер пакетов \textbf{pnpm} для
+    установки commitizen и standard-changelog.
+  \item
+    Спецификация \textbf{Semantic Versioning (SemVer)} и
+    \textbf{Conventional commits} как теоретическая база
+    структурирования версий и коммитов.
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Ход работы --- подготовка и настройка
+инструментов}\label{ux445ux43eux434-ux440ux430ux431ux43eux442ux44b-ux43fux43eux434ux433ux43eux442ux43eux432ux43aux430-ux438-ux43dux430ux441ux442ux440ux43eux439ux43aux430-ux438ux43dux441ux442ux440ux443ux43cux435ux43dux442ux43eux432}
+
+\begin{frame}{Этап 1: Установка git-flow и настройка репозитория}
+\phantomsection\label{ux44dux442ux430ux43f-1-ux443ux441ux442ux430ux43dux43eux432ux43aux430-git-flow-ux438-ux43dux430ux441ux442ux440ux43eux439ux43aux430-ux440ux435ux43fux43eux437ux438ux442ux43eux440ux438ux44f}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Установка git-flow из коллекции репозиториев copr.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/1.png}
+
+}
+
+\caption{\label{fig-001}Установка git-flow}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{Этап 2: Настройка Node.js и pnpm}
+\phantomsection\label{ux44dux442ux430ux43f-2-ux43dux430ux441ux442ux440ux43eux439ux43aux430-node.js-ux438-pnpm}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Конфигурация Node.js и pnpm, добавление каталога с исполняемыми
+  файлами в переменную PATH.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/2.png}
+
+}
+
+\caption{\label{fig-002}Добавление каталога pnpm в PATH}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{Этап 3: Установка commitizen и standard-changelog}
+\phantomsection\label{ux44dux442ux430ux43f-3-ux443ux441ux442ux430ux43dux43eux432ux43aux430-commitizen-ux438-standard-changelog}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Установка глобальных пакетов для форматирования коммитов и генерации
+  логов.
+\end{itemize}
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/3.png}
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/4.png}
+\end{frame}
+
+\begin{frame}{Этап 4: Создание репозитория на GitHub}
+\phantomsection\label{ux44dux442ux430ux43f-4-ux441ux43eux437ux434ux430ux43dux438ux435-ux440ux435ux43fux43eux437ux438ux442ux43eux440ux438ux44f-ux43dux430-github}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Создание репозитория git-extended на GitHub.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/5.png}
+
+}
+
+\caption{\label{fig-005}Создание репозитория git-extended}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{Этап 5: Первый коммит и отправка на GitHub}
+\phantomsection\label{ux44dux442ux430ux43f-5-ux43fux435ux440ux432ux44bux439-ux43aux43eux43cux43cux438ux442-ux438-ux43eux442ux43fux440ux430ux432ux43aux430-ux43dux430-github}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Создание первого коммита и отправка его на GitHub.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/6.png}
+
+}
+
+\caption{\label{fig-006}Первый коммит и push}
+
+\end{figure}%
+\end{frame}
+
+\section{Ход работы --- реализация сценария
+Gitflow}\label{ux445ux43eux434-ux440ux430ux431ux43eux442ux44b-ux440ux435ux430ux43bux438ux437ux430ux446ux438ux44f-ux441ux446ux435ux43dux430ux440ux438ux44f-gitflow}
+
+\begin{frame}{Этап 6: Инициализация git-flow}
+\phantomsection\label{ux44dux442ux430ux43f-6-ux438ux43dux438ux446ux438ux430ux43bux438ux437ux430ux446ux438ux44f-git-flow}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Преобразование репозитория в репозиторий git-flow.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Этап 7: Создание релиза 1.0.0}
+\phantomsection\label{ux44dux442ux430ux43f-7-ux441ux43eux437ux434ux430ux43dux438ux435-ux440ux435ux43bux438ux437ux430-1.0.0}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Создание релиза с версией 1.0.0.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/16.png}
+
+}
+
+\caption{\label{fig-016}Создание релиза 1.0.0}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{Этап 8: Генерация журнала изменений}
+\phantomsection\label{ux44dux442ux430ux43f-8-ux433ux435ux43dux435ux440ux430ux446ux438ux44f-ux436ux443ux440ux43dux430ux43bux430-ux438ux437ux43cux435ux43dux435ux43dux438ux439}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Создание журнала изменений с помощью standard-changelog.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/17.png}
+
+}
+
+\caption{\label{fig-017}Генерация CHANGELOG}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{Этап 9: Завершение релиза}
+\phantomsection\label{ux44dux442ux430ux43f-9-ux437ux430ux432ux435ux440ux448ux435ux43dux438ux435-ux440ux435ux43bux438ux437ux430}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Отправка релизной ветки в основную ветку и публикация релиза на
+  GitHub.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/19.png}
+
+}
+
+\caption{\label{fig-019}Завершение релиза}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{Этап 10: Создание релиза 1.2.3}
+\phantomsection\label{ux44dux442ux430ux43f-10-ux441ux43eux437ux434ux430ux43dux438ux435-ux440ux435ux43bux438ux437ux430-1.2.3}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Повторение цикла для версии 1.2.3 (добавление новой функциональности).
+\end{itemize}
+\end{frame}
+
+\section{Результаты и
+анализ}\label{ux440ux435ux437ux443ux43bux44cux442ux430ux442ux44b-ux438-ux430ux43dux430ux43bux438ux437}
+
+\begin{frame}{Анализ достигнутых результатов}
+\phantomsection\label{ux430ux43dux430ux43bux438ux437-ux434ux43eux441ux442ux438ux433ux43dux443ux442ux44bux445-ux440ux435ux437ux443ux43bux44cux442ux430ux442ux43eux432}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Реализован полный цикл Gitflow: от создания функциональных веток до
+  релизов и горячих исправлений.
+\item
+  Сообщения коммитов приведены к единому формату, что позволило
+  автоматически форматировать CHANGELOG.
+\item
+  Репозиторий стал удобен для отслеживания истории и выпуска версий, что
+  подтверждается успешно созданными релизами 1.0.0 и 1.2.3.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Практическая значимость результатов}
+\phantomsection\label{ux43fux440ux430ux43aux442ux438ux447ux435ux441ux43aux430ux44f-ux437ux43dux430ux447ux438ux43cux43eux441ux442ux44c-ux440ux435ux437ux443ux43bux44cux442ux430ux442ux43eux432}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Полученный опыт можно использовать при разработке учебных и реальных
+  проектов с командной работой и релизным циклом.
+\item
+  Набор инструментов (git-flow, commitizen, standard-changelog)
+  масштабируется на более крупные системы без существенных изменений
+  процесса.
+\item
+  Сформированные навыки лягут в основу более сложных практик DevOps и
+  CI/CD.
+\end{itemize}
+\end{frame}
+
+\section{Выводы}\label{ux432ux44bux432ux43eux434ux44b}
+
+\begin{frame}{Общее заключение}
+\phantomsection\label{ux43eux431ux449ux435ux435-ux437ux430ux43aux43bux44eux447ux435ux43dux438ux435}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  В ходе лабораторной работы освоены методология Gitflow, семантическое
+  версионирование и стандарт общепринятых коммитов, а также инструменты
+  commitizen и standard-changelog.
+\item
+  Практически отработаны сценарии создания функциональных веток,
+  подготовки релизов и автоматической генерации журналов изменений.
+\item
+  Достигнутая цель подтверждает гипотезу о том, что применение данных
+  практик делает процесс разработки более структурированным и
+  прозрачным.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Выводы}
+\phantomsection\label{ux432ux44bux432ux43eux434ux44b-1}
+\begin{enumerate}[<+->]
+\tightlist
+\item
+  Gitflow обеспечивает удобную и понятную структуру веток для
+  релизно-ориентированной разработки.
+\item
+  Семантическое версионирование и Conventional Commits упрощают
+  сопровождение проекта и взаимодействие участников команды.
+\item
+  Автоматизация формирования CHANGELOG и релизов снижает вероятность
+  ошибок и ускоряет выпуск новых версий.
+\item
+  Полученные компетенции полезны для последующей учебной,
+  исследовательской и профессиональной деятельности в области разработки
+  ПО.
+\end{enumerate}
+\end{frame}
+
+
+
+
+\end{document}

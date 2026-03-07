@@ -1,0 +1,587 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  ignorenonframetext,
+  aspectratio=169,
+  russian,
+  aspectratio=169]{beamer}
+\newif\ifbibliography
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolshorizontal
+% remove section numbering
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{section title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{subsection title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+
+\usefonttheme{serif} % use mainfont rather than sansfont for slide text
+\ifPDFTeX\else
+  % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
+  \setsansfont[]{DejaVu Sans}
+  \setmonofont[]{DejaVu Sans Mono}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+\usepackage{caption}
+% Make caption package work with longtable
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic,provide=*]{babel}
+\else
+\usepackage[bidi=default,provide=*]{babel}
+\fi
+\ifPDFTeX
+\else
+\babelfont{rm}[]{DejaVu Serif}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+\usepackage[]{csquotes}
+
+\IfFileExists{plex-otf.sty}{
+  %% Full TeXlive
+  % \usepackage[%
+  %   % math,
+  %   RM={Scale=0.94},SS={Scale=0.94},SScon={Scale=0.94},TT={Scale=MatchLowercase,FakeStretch=0.9},DefaultFeatures={Ligatures=Common}
+  % ]{plex-otf}
+}{
+  %% TinyTeX
+  \usepackage{libertine}
+}
+
+%%% Load theme
+% https://deic.uab.cat/~iblanes/beamer_gallery/
+\IfFileExists{beamerthemegotham.sty}{
+  %% Full TeXlive
+  \usetheme{gotham}
+  \gothamset{
+    numbering=totalpagenumber,
+    parttocframe default=off,
+    sectiontocframe default=off,
+    subsectiontocframe default=off,
+  }
+}{
+  %% TinyTeX
+  \usetheme{Madrid}
+}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Содержание}
+\else
+  \newcommand\contentsname{Содержание}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Список иллюстраций}
+\else
+  \newcommand\listfigurename{Список иллюстраций}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Список таблиц}
+\else
+  \newcommand\listtablename{Список таблиц}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Рисунок}
+\else
+  \newcommand\figurename{Рисунок}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Таблица}
+\else
+  \newcommand\tablename{Таблица}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Список}
+\newcommand*\listoflistings{\listof{codelisting}{Листинги}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Выполнение лабораторной работы №2},
+  pdfauthor={Карпухин Клим},
+  pdflang={ru-RU},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Выполнение лабораторной работы №2}
+\subtitle{Первоначальная настройка git}
+\author{Карпухин Клим}
+\date{2026-03-01}
+
+\begin{document}
+\frame{\titlepage}
+
+
+\section{Содержание}\label{ux441ux43eux434ux435ux440ux436ux430ux43dux438ux435}
+
+\begin{frame}{Содержание}
+\begin{enumerate}[<+->]
+\tightlist
+\item
+  Информация о докладчике
+\item
+  Вводная часть и актуальность
+\item
+  Объект и предмет исследования
+\item
+  Цель работы
+\item
+  Задачи
+\item
+  Материалы, методы и инструменты
+\item
+  Ход работы (этапы, скриншоты)
+\item
+  Результаты и анализ
+\item
+  Выводы
+\end{enumerate}
+\end{frame}
+
+\section{Информация}\label{ux438ux43dux444ux43eux440ux43cux430ux446ux438ux44f}
+
+\begin{frame}{Докладчик}
+\phantomsection\label{ux434ux43eux43aux43bux430ux434ux447ux438ux43a}
+\begin{columns}[c]
+\begin{column}{0.65\linewidth}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \textbf{Карпухин Клим}
+\item
+  Российский университет дружбы народов
+\item
+  Email:
+  \href{mailto:1032255580@rudn.ru}{\nolinkurl{1032255580@rudn.ru}}
+\item
+  Роли: студент (лабораторная работа по ОС/виртуализации)
+\end{itemize}
+\end{column}
+
+\begin{column}{0.35\linewidth}
+\includegraphics[width=0.9\linewidth,height=\textheight,keepaspectratio]{./image/dokladchik.png}
+\end{column}
+\end{columns}
+\end{frame}
+
+\section{Вводная
+часть}\label{ux432ux432ux43eux434ux43dux430ux44f-ux447ux430ux441ux442ux44c}
+
+\begin{frame}{Актуальность}
+\phantomsection\label{ux430ux43aux442ux443ux430ux43bux44cux43dux43eux441ux442ux44c}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Системы контроля версий (VCS) --- стандарт современной разработки.
+\item
+  Git является наиболее распространённой распределённой VCS.
+\item
+  Платформа GitHub --- ключевой инструмент для хостинга проектов и
+  командной работы.
+\item
+  Владение Git необходимо для учёбы, исследований и будущей
+  профессиональной деятельности.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Объект и предмет исследования}
+\phantomsection\label{ux43eux431ux44aux435ux43aux442-ux438-ux43fux440ux435ux434ux43cux435ux442-ux438ux441ux441ux43bux435ux434ux43eux432ux430ux43dux438ux44f}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \textbf{Объект:} система контроля версий Git и платформа GitHub.
+\item
+  \textbf{Предмет:} процесс первичной настройки окружения для работы с
+  Git, включая аутентификацию и верификацию.
+\end{itemize}
+\end{frame}
+
+\section{Цель и
+задачи}\label{ux446ux435ux43bux44c-ux438-ux437ux430ux434ux430ux447ux438}
+
+\begin{frame}{Цель}
+\phantomsection\label{ux446ux435ux43bux44c}
+Изучить идеологию и применение средств контроля версий, освоить базовые
+навыки работы с git.
+\end{frame}
+
+\begin{frame}{Задачи}
+\phantomsection\label{ux437ux430ux434ux430ux447ux438}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Создать базовую конфигурацию для работы с git.
+\item
+  Создать ключ SSH и ключ PGP.
+\item
+  Настроить автоматические подписи коммитов.
+\item
+  Зарегистрироваться на GitHub.
+\item
+  Создать локальный каталог для выполнения заданий по предмету.
+\end{itemize}
+\end{frame}
+
+\section{Материалы и
+методы}\label{ux43cux430ux442ux435ux440ux438ux430ux43bux44b-ux438-ux43cux435ux442ux43eux434ux44b}
+
+\begin{frame}[fragile]{Материалы и методы}
+\phantomsection\label{ux43cux430ux442ux435ux440ux438ux430ux43bux44b-ux438-ux43cux435ux442ux43eux434ux44b-1}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \textbf{Инструменты}
+
+  \begin{itemize}[<+->]
+  \tightlist
+  \item
+    Git --- распределённая система контроля версий.
+  \item
+    Утилита \texttt{gh} (GitHub CLI) для работы с GitHub.
+  \item
+    SSH для безопасного подключения к удалённым репозиториям.
+  \item
+    GnuPG (gpg) для создания ключей подписи коммитов.
+  \end{itemize}
+\item
+  \textbf{Методы:} настройка конфигурационных файлов, генерация ключей
+  шифрования, работа с командной строкой Linux.
+\end{itemize}
+\end{frame}
+
+\section{Ход работы --- настройка Git
+(этапы)}\label{ux445ux43eux434-ux440ux430ux431ux43eux442ux44b-ux43dux430ux441ux442ux440ux43eux439ux43aux430-git-ux44dux442ux430ux43fux44b}
+
+\begin{frame}[fragile]{Этап 1: Установка программного обеспечения}
+\phantomsection\label{ux44dux442ux430ux43f-1-ux443ux441ux442ux430ux43dux43eux432ux43aux430-ux43fux440ux43eux433ux440ux430ux43cux43cux43dux43eux433ux43e-ux43eux431ux435ux441ux43fux435ux447ux435ux43dux438ux44f}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Установлены \texttt{git} и \texttt{gh} с помощью пакетного менеджера
+  \texttt{dnf}.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/1.png}
+
+}
+
+\caption{\label{fig-001}Установка git и gh}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{Этап 2: Базовая настройка Git}
+\phantomsection\label{ux44dux442ux430ux43f-2-ux431ux430ux437ux43eux432ux430ux44f-ux43dux430ux441ux442ux440ux43eux439ux43aux430-git}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Заданы имя и email владельца репозитория.
+\item
+  Настроена кодировка UTF-8, имя начальной ветки, параметры autocrlf и
+  safecrlf.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/2.png}
+
+}
+
+\caption{\label{fig-002}Базовая настройка Git}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}[fragile]{Этап 3: Создание SSH-ключа}
+\phantomsection\label{ux44dux442ux430ux43f-3-ux441ux43eux437ux434ux430ux43dux438ux435-ssh-ux43aux43bux44eux447ux430}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Сгенерированы ключи по алгоритмам \texttt{rsa} (4096 бит) и
+  \texttt{ed25519}.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/3.png}
+
+}
+
+\caption{\label{fig-003}Создание SSH-ключей}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{Этап 4: Создание PGP-ключа}
+\phantomsection\label{ux44dux442ux430ux43f-4-ux441ux43eux437ux434ux430ux43dux438ux435-pgp-ux43aux43bux44eux447ux430}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Создан ключ для подписи коммитов (RSA and RSA, 4096 бит).
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/5.png}
+
+}
+
+\caption{\label{fig-005}Создание PGP-ключа}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{Этап 5: Добавление PGP-ключа в GitHub}
+\phantomsection\label{ux44dux442ux430ux43f-5-ux434ux43eux431ux430ux432ux43bux435ux43dux438ux435-pgp-ux43aux43bux44eux447ux430-ux432-github}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Ключ скопирован и добавлен в веб-интерфейсе GitHub.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/9.png}
+
+}
+
+\caption{\label{fig-009}Добавление PGP-ключа в GitHub}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{Этап 6: Настройка автоматических подписей коммитов}
+\phantomsection\label{ux44dux442ux430ux43f-6-ux43dux430ux441ux442ux440ux43eux439ux43aux430-ux430ux432ux442ux43eux43cux430ux442ux438ux447ux435ux441ux43aux438ux445-ux43fux43eux434ux43fux438ux441ux435ux439-ux43aux43eux43cux43cux438ux442ux43eux432}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Указан PGP-ключ для подписи, включена автоматическая подпись коммитов.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/10.png}
+
+}
+
+\caption{\label{fig-010}Настройка подписей коммитов}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}[fragile]{Этап 7: Создание репозитория курса на основе
+шаблона}
+\phantomsection\label{ux44dux442ux430ux43f-7-ux441ux43eux437ux434ux430ux43dux438ux435-ux440ux435ux43fux43eux437ux438ux442ux43eux440ux438ux44f-ux43aux443ux440ux441ux430-ux43dux430-ux43eux441ux43dux43eux432ux435-ux448ux430ux431ux43bux43eux43dux430}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Использована команда \texttt{gh\ repo\ create} с шаблоном.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/12.png}
+
+}
+
+\caption{\label{fig-012}Создание репозитория из шаблона}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}[fragile]{Этап 8: Настройка каталога курса и первый коммит}
+\phantomsection\label{ux44dux442ux430ux43f-8-ux43dux430ux441ux442ux440ux43eux439ux43aux430-ux43aux430ux442ux430ux43bux43eux433ux430-ux43aux443ux440ux441ux430-ux438-ux43fux435ux440ux432ux44bux439-ux43aux43eux43cux43cux438ux442}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Создана структура каталогов, выполнены \texttt{git\ add},
+  \texttt{commit}, \texttt{push}.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/14.png}
+
+}
+
+\caption{\label{fig-014}Первый коммит и push}
+
+\end{figure}%
+\end{frame}
+
+\section{Результаты и
+анализ}\label{ux440ux435ux437ux443ux43bux44cux442ux430ux442ux44b-ux438-ux430ux43dux430ux43bux438ux437}
+
+\begin{frame}{Анализ и практическая значимость}
+\phantomsection\label{ux430ux43dux430ux43bux438ux437-ux438-ux43fux440ux430ux43aux442ux438ux447ux435ux441ux43aux430ux44f-ux437ux43dux430ux447ux438ux43cux43eux441ux442ux44c}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \textbf{Результат:} полностью настроенное рабочее окружение для
+  дальнейшей работы с курсом.
+\item
+  Созданы и добавлены в аккаунт GitHub ключи для безопасной
+  аутентификации (SSH) и верификации авторства (PGP).
+\item
+  Все последующие коммиты из этого репозитория будут автоматически
+  подписаны и помечены на GitHub как \enquote{Verified}.
+\item
+  \textbf{Практическая значимость:}
+
+  \begin{itemize}[<+->]
+  \tightlist
+  \item
+    Полученные навыки являются базой для выполнения всех последующих
+    лабораторных работ.
+  \item
+    Обеспечена безопасность и прослеживаемость изменений в проектах.
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Выводы}\label{ux432ux44bux432ux43eux434ux44b}
+
+\begin{frame}{Выводы}
+\phantomsection\label{ux432ux44bux432ux43eux434ux44b-1}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  В ходе работы была изучена идеология систем контроля версий.
+\item
+  Освоены практические навыки первичной настройки Git.
+\item
+  Сгенерированы SSH- и PGP-ключи, необходимые для безопасной работы и
+  подтверждения авторства.
+\item
+  Настроена интеграция локального Git-клиента с платформой GitHub.
+\item
+  Создано рабочее пространство с применением шаблона репозитория,
+  готовое для выполнения заданий по предмету.
+\item
+  \textbf{Цель лабораторной работы достигнута полностью.}
+\end{itemize}
+\end{frame}
+
+
+
+
+\end{document}
