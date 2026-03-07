@@ -1,3 +1,5 @@
+# [1.0.0](github.com/username/git-extended/compare/v1.4.0...v1.0.0) (2026-03-07)
+
 # 1.0.0 (2026-03-07)
 
 
