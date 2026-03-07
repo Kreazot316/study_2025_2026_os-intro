@@ -1,0 +1,639 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  ignorenonframetext,
+  aspectratio=169,
+  russian,
+  aspectratio=169]{beamer}
+\newif\ifbibliography
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolshorizontal
+% remove section numbering
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{section title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{subsection title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+
+\usefonttheme{serif} % use mainfont rather than sansfont for slide text
+\ifPDFTeX\else
+  % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
+  \setsansfont[]{DejaVu Sans}
+  \setmonofont[]{DejaVu Sans Mono}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+\usepackage{caption}
+% Make caption package work with longtable
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic,provide=*]{babel}
+\else
+\usepackage[bidi=default,provide=*]{babel}
+\fi
+\ifPDFTeX
+\else
+\babelfont{rm}[]{DejaVu Serif}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+\usepackage[]{csquotes}
+
+\IfFileExists{plex-otf.sty}{
+  %% Full TeXlive
+  % \usepackage[%
+  %   % math,
+  %   RM={Scale=0.94},SS={Scale=0.94},SScon={Scale=0.94},TT={Scale=MatchLowercase,FakeStretch=0.9},DefaultFeatures={Ligatures=Common}
+  % ]{plex-otf}
+}{
+  %% TinyTeX
+  \usepackage{libertine}
+}
+
+%%% Load theme
+% https://deic.uab.cat/~iblanes/beamer_gallery/
+\IfFileExists{beamerthemegotham.sty}{
+  %% Full TeXlive
+  \usetheme{gotham}
+  \gothamset{
+    numbering=totalpagenumber,
+    parttocframe default=off,
+    sectiontocframe default=off,
+    subsectiontocframe default=off,
+  }
+}{
+  %% TinyTeX
+  \usetheme{Madrid}
+}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Содержание}
+\else
+  \newcommand\contentsname{Содержание}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Список иллюстраций}
+\else
+  \newcommand\listfigurename{Список иллюстраций}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Список таблиц}
+\else
+  \newcommand\listtablename{Список таблиц}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Рисунок}
+\else
+  \newcommand\figurename{Рисунок}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Таблица}
+\else
+  \newcommand\tablename{Таблица}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Список}
+\newcommand*\listoflistings{\listof{codelisting}{Листинги}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Первый этап реализации индивидуального проекта},
+  pdfauthor={Карпухин Клим},
+  pdflang={ru-RU},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Первый этап реализации индивидуального проекта}
+\subtitle{Размещение на GitHub Pages заготовки для персонального сайта}
+\author{Карпухин Клим}
+\date{2026-03-07}
+
+\begin{document}
+\frame{\titlepage}
+
+
+\section{Содержание}\label{ux441ux43eux434ux435ux440ux436ux430ux43dux438ux435}
+
+\begin{frame}{Содержание}
+\begin{enumerate}[<+->]
+\tightlist
+\item
+  Информация о докладчике
+\item
+  Цель работы
+\item
+  Задание
+\item
+  Теоретическое введение
+\item
+  Ход работы (этапы, скриншоты)
+\item
+  Выводы
+\end{enumerate}
+\end{frame}
+
+\section{Информация}\label{ux438ux43dux444ux43eux440ux43cux430ux446ux438ux44f}
+
+\begin{frame}{Докладчик}
+\phantomsection\label{ux434ux43eux43aux43bux430ux434ux447ux438ux43a}
+\begin{columns}[c]
+\begin{column}{0.65\linewidth}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \textbf{Карпухин Клим}
+\item
+  Российский университет дружбы народов
+\item
+  Email:
+  \href{mailto:1032255580@rudn.ru}{\nolinkurl{1032255580@rudn.ru}}
+\item
+  Роли: студент (индивидуальный проект)
+\end{itemize}
+\end{column}
+
+\begin{column}{0.35\linewidth}
+\includegraphics[width=0.9\linewidth,height=\textheight,keepaspectratio]{./image/dokladchik.png}
+\end{column}
+\end{columns}
+\end{frame}
+
+\section{Вводная
+часть}\label{ux432ux432ux43eux434ux43dux430ux44f-ux447ux430ux441ux442ux44c}
+
+\begin{frame}{Цель работы}
+\phantomsection\label{ux446ux435ux43bux44c-ux440ux430ux431ux43eux442ux44b}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Создать базовую версию персонального веб-сайта с помощью генератора
+  статических сайтов Hugo.
+\item
+  Развернуть сайт на платформе GitHub Pages.
+\item
+  Настроить автоматическое обновление сайта при изменениях в репозитории
+  через GitHub Actions.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Задание}
+\phantomsection\label{ux437ux430ux434ux430ux43dux438ux435}
+\begin{enumerate}[<+->]
+\tightlist
+\item
+  Подготовить рабочее окружение: установить необходимое программное
+  обеспечение.
+\item
+  Загрузить шаблон темы для будущего сайта.
+\item
+  Создать удалённый репозиторий на GitHub и связать его с локальной
+  версией проекта.
+\item
+  Настроить параметр \texttt{baseURL} для корректной работы сайта на
+  GitHub Pages.
+\item
+  Опубликовать заготовку сайта, используя механизмы GitHub Pages и
+  GitHub Actions.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{Теоретическое введение}
+\phantomsection\label{ux442ux435ux43eux440ux435ux442ux438ux447ux435ux441ux43aux43eux435-ux432ux432ux435ux434ux435ux43dux438ux435}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \textbf{GitHub Pages} --- сервис для размещения статических
+  веб-страниц из репозиториев GitHub.
+\item
+  \textbf{Hugo} --- генератор статических сайтов, превращающий исходные
+  файлы в готовый HTML, CSS и JavaScript.
+\item
+  \textbf{GitHub Actions} --- автоматизация сборки и публикации: при
+  обновлении ветки \texttt{main} запускается процесс, который собирает
+  сайт и размещает его на Pages.
+\item
+  \textbf{Wowchemy (Hugo Academic Theme)} --- стартовый шаблон на основе
+  Hugo. Для обработки стилей через TailwindCSS необходимы Node.js и
+  pnpm.
+\end{itemize}
+\end{frame}
+
+\section{Ход работы --- подготовка
+окружения}\label{ux445ux43eux434-ux440ux430ux431ux43eux442ux44b-ux43fux43eux434ux433ux43eux442ux43eux432ux43aux430-ux43eux43aux440ux443ux436ux435ux43dux438ux44f}
+
+\begin{frame}{Этап 1: Установка необходимого ПО}
+\phantomsection\label{ux44dux442ux430ux43f-1-ux443ux441ux442ux430ux43dux43eux432ux43aux430-ux43dux435ux43eux431ux445ux43eux434ux438ux43cux43eux433ux43e-ux43fux43e}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Установка Git, Go и Node.js через терминал.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/1.png}
+
+}
+
+\caption{\label{fig-001}Установка Git, Go и Node.js}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{Этап 2: Установка Hugo Extended}
+\phantomsection\label{ux44dux442ux430ux43f-2-ux443ux441ux442ux430ux43dux43eux432ux43aux430-hugo-extended}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Установка расширенной версии Hugo (Hugo Extended) для поддержки
+  SCSS/SASS и TailwindCSS.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/2.png}
+
+}
+
+\caption{\label{fig-002}Установка Hugo Extended}
+
+\end{figure}%
+\end{frame}
+
+\section{Ход работы --- получение
+шаблона}\label{ux445ux43eux434-ux440ux430ux431ux43eux442ux44b-ux43fux43eux43bux443ux447ux435ux43dux438ux435-ux448ux430ux431ux43bux43eux43dux430}
+
+\begin{frame}[fragile]{Этап 3: Клонирование шаблона и установка pnpm}
+\phantomsection\label{ux44dux442ux430ux43f-3-ux43aux43bux43eux43dux438ux440ux43eux432ux430ux43dux438ux435-ux448ux430ux431ux43bux43eux43dux430-ux438-ux443ux441ux442ux430ux43dux43eux432ux43aux430-pnpm}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Создание рабочей директории, клонирование репозитория-шаблона
+  \texttt{starter-hugo-academic}, установка pnpm.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/3.png}
+
+}
+
+\caption{\label{fig-003}Клонирование шаблона и установка pnpm}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{Этап 4: Запуск локального сервера}
+\phantomsection\label{ux44dux442ux430ux43f-4-ux437ux430ux43fux443ux441ux43a-ux43bux43eux43aux430ux43bux44cux43dux43eux433ux43e-ux441ux435ux440ux432ux435ux440ux430}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Запуск локального сервера разработки Hugo для проверки внешнего вида.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/4.png}
+
+}
+
+\caption{\label{fig-004}Запуск локального сервера Hugo}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}[fragile]{Этап 5: Просмотр локальной версии}
+\phantomsection\label{ux44dux442ux430ux43f-5-ux43fux440ux43eux441ux43cux43eux442ux440-ux43bux43eux43aux430ux43bux44cux43dux43eux439-ux432ux435ux440ux441ux438ux438}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Сайт открылся в браузере по адресу \texttt{http://localhost:1313/} ---
+  базовая структура отображается корректно.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/5.png}
+
+}
+
+\caption{\label{fig-005}Просмотр локальной версии сайта}
+
+\end{figure}%
+\end{frame}
+
+\section{Ход работы --- создание
+репозитория}\label{ux445ux43eux434-ux440ux430ux431ux43eux442ux44b-ux441ux43eux437ux434ux430ux43dux438ux435-ux440ux435ux43fux43eux437ux438ux442ux43eux440ux438ux44f}
+
+\begin{frame}[fragile]{Этап 6: Создание репозитория на GitHub}
+\phantomsection\label{ux44dux442ux430ux43f-6-ux441ux43eux437ux434ux430ux43dux438ux435-ux440ux435ux43fux43eux437ux438ux442ux43eux440ux438ux44f-ux43dux430-github}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Создание нового публичного репозитория \texttt{my-academic-site} на
+  GitHub для хранения исходного кода.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/6.png}
+
+}
+
+\caption{\label{fig-006}Создание нового репозитория на GitHub}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}[fragile]{Этап 7: Настройка параметра \texttt{baseURL}}
+\phantomsection\label{ux44dux442ux430ux43f-7-ux43dux430ux441ux442ux440ux43eux439ux43aux430-ux43fux430ux440ux430ux43cux435ux442ux440ux430-baseurl}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  В файле \texttt{hugo.yaml} указан
+  \texttt{baseURL\ =\ https://kreazot316.github.io/my-academic-site/}.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/7.png}
+
+}
+
+\caption{\label{fig-007}Настройка baseURL в конфигурации}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}[fragile]{Этап 8: Подготовка контента для стабильной
+сборки}
+\phantomsection\label{ux44dux442ux430ux43f-8-ux43fux43eux434ux433ux43eux442ux43eux432ux43aux430-ux43aux43eux43dux442ux435ux43dux442ux430-ux434ux43bux44f-ux441ux442ux430ux431ux438ux43bux44cux43dux43eux439-ux441ux431ux43eux440ux43aux438}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Временное отключение раздела блога (перемещение \texttt{content/blog}
+  в \texttt{content-disabled/blog}) для исключения ошибок.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/8.png}
+
+}
+
+\caption{\label{fig-008}Отключение демо-блога}
+
+\end{figure}%
+\end{frame}
+
+\section{Ход работы --- публикация
+проекта}\label{ux445ux43eux434-ux440ux430ux431ux43eux442ux44b-ux43fux443ux431ux43bux438ux43aux430ux446ux438ux44f-ux43fux440ux43eux435ux43aux442ux430}
+
+\begin{frame}{Этап 9: Отправка проекта на GitHub}
+\phantomsection\label{ux44dux442ux430ux43f-9-ux43eux442ux43fux440ux430ux432ux43aux430-ux43fux440ux43eux435ux43aux442ux430-ux43dux430-github}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Инициализация Git-репозитория, добавление файлов, коммит и отправка в
+  удалённый репозиторий.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/9.png}
+
+}
+
+\caption{\label{fig-009}Отправка локального проекта на GitHub}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{Этап 10: Настройка GitHub Pages и GitHub Actions}
+\phantomsection\label{ux44dux442ux430ux43f-10-ux43dux430ux441ux442ux440ux43eux439ux43aux430-github-pages-ux438-github-actions}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  В настройках репозитория выбран источник публикации \textbf{GitHub
+  Actions}.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/10.png}
+
+}
+
+\caption{\label{fig-010}Выбор источника GitHub Actions}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}[fragile]{Этап 11: Создание workflow-файла}
+\phantomsection\label{ux44dux442ux430ux43f-11-ux441ux43eux437ux434ux430ux43dux438ux435-workflow-ux444ux430ux439ux43bux430}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Создан файл \texttt{.github/workflows/hugo.yml} с описанием шагов
+  сборки и деплоя.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/11.png}
+
+}
+
+\caption{\label{fig-011}Workflow для автоматической сборки и деплоя}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{Этап 12: Отправка workflow в репозиторий}
+\phantomsection\label{ux44dux442ux430ux43f-12-ux43eux442ux43fux440ux430ux432ux43aux430-workflow-ux432-ux440ux435ux43fux43eux437ux438ux442ux43eux440ux438ux439}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Добавление, коммит и отправка workflow-файла на GitHub.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/12.png}
+
+}
+
+\caption{\label{fig-012}Отправка workflow в репозиторий}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}[fragile]{Этап 13: Проверка результата}
+\phantomsection\label{ux44dux442ux430ux43f-13-ux43fux440ux43eux432ux435ux440ux43aux430-ux440ux435ux437ux443ux43bux44cux442ux430ux442ux430}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Сайт доступен по адресу
+  \texttt{https://kreazot316.github.io/my-academic-site/} и выглядит так
+  же, как локальная версия.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/13.png}
+
+}
+
+\caption{\label{fig-013}Финальный вид опубликованного сайта}
+
+\end{figure}%
+\end{frame}
+
+\section{Выводы}\label{ux432ux44bux432ux43eux434ux44b}
+
+\begin{frame}{Выводы}
+\phantomsection\label{ux432ux44bux432ux43eux434ux44b-1}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Выполнена начальная настройка проекта: установлено ПО, загружен шаблон
+  Hugo, создан удалённый репозиторий.
+\item
+  Настроена автоматическая сборка и публикация с помощью GitHub Actions.
+\item
+  Заготовка персонального сайта доступна в интернете и готова к
+  дальнейшему наполнению и модификации.
+\end{itemize}
+\end{frame}
+
+
+
+
+\end{document}
