@@ -1,0 +1,758 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  ignorenonframetext,
+  aspectratio=169,
+  russian,
+  aspectratio=169]{beamer}
+\newif\ifbibliography
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolshorizontal
+% remove section numbering
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{section title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{subsection title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+
+\usefonttheme{serif} % use mainfont rather than sansfont for slide text
+\ifPDFTeX\else
+  % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
+  \setsansfont[]{DejaVu Sans}
+  \setmonofont[]{DejaVu Sans Mono}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+
+
+\usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
+\usepackage{calc} % for calculating minipage widths
+\usepackage{caption}
+% Make caption package work with longtable
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic,shorthands=off,provide=*]{babel}
+\else
+\usepackage[bidi=default,shorthands=off,provide=*]{babel}
+\fi
+\ifPDFTeX
+\else
+\babelfont{rm}[]{DejaVu Serif}
+\fi
+\ifLuaTeX
+  \usepackage{selnolig} % disable illegal ligatures
+\fi
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+\usepackage[]{csquotes}
+
+\IfFileExists{plex-otf.sty}{
+  %% Full TeXlive
+  % \usepackage[%
+  %   % math,
+  %   RM={Scale=0.94},SS={Scale=0.94},SScon={Scale=0.94},TT={Scale=MatchLowercase,FakeStretch=0.9},DefaultFeatures={Ligatures=Common}
+  % ]{plex-otf}
+}{
+  %% TinyTeX
+  \usepackage{libertine}
+}
+
+%%% Load theme
+% https://deic.uab.cat/~iblanes/beamer_gallery/
+\IfFileExists{beamerthemegotham.sty}{
+  %% Full TeXlive
+  \usetheme{gotham}
+  \gothamset{
+    numbering=totalpagenumber,
+    parttocframe default=off,
+    sectiontocframe default=off,
+    subsectiontocframe default=off,
+  }
+}{
+  %% TinyTeX
+  \usetheme{Madrid}
+}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Содержание}
+\else
+  \newcommand\contentsname{Содержание}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Список иллюстраций}
+\else
+  \newcommand\listfigurename{Список иллюстраций}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Список таблиц}
+\else
+  \newcommand\listtablename{Список таблиц}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Рисунок}
+\else
+  \newcommand\figurename{Рисунок}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Таблица}
+\else
+  \newcommand\tablename{Таблица}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Список}
+\newcommand*\listoflistings{\listof{codelisting}{Листинги}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Выполнение лабораторной работы №4},
+  pdfauthor={Карпухин Клим},
+  pdflang={ru-RU},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{\texorpdfstring{Выполнение лабораторной работы
+№4}{Выполнение лабораторной работы №4}}
+\subtitle{\texorpdfstring{Продвинутое использование
+git}{Продвинутое использование git}}
+\author{Карпухин Клим}
+\date{2026-03-07}
+
+\begin{document}
+\frame{\titlepage}
+
+
+\section{Содержание}\label{ux441ux43eux434ux435ux440ux436ux430ux43dux438ux435}
+
+\begin{frame}{Содержание}
+\begin{enumerate}[<+->]
+\tightlist
+\item
+  Информация о докладчике
+\item
+  Вводная часть и актуальность
+\item
+  Объект и предмет исследования
+\item
+  Научная новизна и практическая значимость
+\item
+  Цель, гипотеза и задачи
+\item
+  Материалы, методы и инструменты
+\item
+  Ход работы (этапы, скриншоты)
+\item
+  Результаты и анализ
+\item
+  Выводы
+\end{enumerate}
+\end{frame}
+
+\section{Информация}\label{ux438ux43dux444ux43eux440ux43cux430ux446ux438ux44f}
+
+\begin{frame}{Докладчик}
+\protect\phantomsection\label{ux434ux43eux43aux43bux430ux434ux447ux438ux43a}
+\begin{columns}[c]
+\begin{column}{0.65\linewidth}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \textbf{Карпухин Клим}
+\item
+  Российский университет дружбы народов
+\item
+  Email:
+  \href{mailto:1032255580@rudn.ru}{\nolinkurl{1032255580@rudn.ru}}
+\item
+  Роли: студент (лабораторная работа по ОС/виртуализации)
+\end{itemize}
+\end{column}
+
+\begin{column}{0.35\linewidth}
+\includegraphics[width=0.9\linewidth,height=\textheight,keepaspectratio]{./image/dokladchik.png}
+\end{column}
+\end{columns}
+\end{frame}
+
+\section{Вводная
+часть}\label{ux432ux432ux43eux434ux43dux430ux44f-ux447ux430ux441ux442ux44c}
+
+\begin{frame}{Актуальность}
+\protect\phantomsection\label{ux430ux43aux442ux443ux430ux43bux44cux43dux43eux441ux442ux44c}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Современные специалисты ежедневно работают с множеством учётных
+  записей и конфигурационных файлов. Безопасное хранение паролей и
+  управление настройками рабочей среды --- критически важные задачи.
+\item
+  Инструменты pass (менеджер паролей) и chezmoi (управление dotfiles)
+  позволяют решить эти задачи сиспользованием проверенных
+  криптографических методов (GPG) и систем контроля версий (Git).
+\item
+  Синхронизация паролей и конфигураций между несколькими машинами
+  становится простой и надёжной, что особенно актуально для
+  разработчиков и администраторов.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Объект и предмет исследования}
+\protect\phantomsection\label{ux43eux431ux44aux435ux43aux442-ux438-ux43fux440ux435ux434ux43cux435ux442-ux438ux441ux441ux43bux435ux434ux43eux432ux430ux43dux438ux44f}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \textbf{Объект:} процесс безопасного хранения учётных данных и
+  управления конфигурационными файлами в Unix-подобных операционных
+  системах.
+\item
+  \textbf{Предмет:} менеджер паролей \texttt{pass}, его расширения
+  (\texttt{gopass}, \texttt{browserpass}), система управления dotfiles
+  \texttt{chezmoi}, а также технологии GPG и Git как основа для их
+  работы.
+\end{itemize}
+\end{frame}
+
+\section{Научная новизна и практическая
+значимость}\label{ux43dux430ux443ux447ux43dux430ux44f-ux43dux43eux432ux438ux437ux43dux430-ux438-ux43fux440ux430ux43aux442ux438ux447ux435ux441ux43aux430ux44f-ux437ux43dux430ux447ux438ux43cux43eux441ux442ux44c}
+
+\begin{frame}[fragile]{Научная новизна}
+\protect\phantomsection\label{ux43dux430ux443ux447ux43dux430ux44f-ux43dux43eux432ux438ux437ux43dux430}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Интеграция GPG-шифрования с файловой системой для организации
+  иерархического хранилища паролей.
+\item
+  Использование Git для версионирования и синхронизации зашифрованных
+  данных без раскрытия их содержимого.
+\item
+  Применение шаблонов (Go templates) в \texttt{chezmoi} для адаптации
+  конфигураций под различные машины в рамках единого репозитория
+  dotfiles.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Практическая значимость работы}
+\protect\phantomsection\label{ux43fux440ux430ux43aux442ux438ux447ux435ux441ux43aux430ux44f-ux437ux43dux430ux447ux438ux43cux43eux441ux442ux44c-ux440ux430ux431ux43eux442ux44b}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Полученные навыки позволяют организовать единое безопасное хранилище
+  паролей, доступное с любого устройства, и автоматически разворачивать
+  рабочее окружение на новых машинах.
+\item
+  Снижение риска потери или компрометации паролей за счёт шифрования и
+  резервного копирования через Git.
+\item
+  Ускорение настройки новых рабочих мест и упрощение поддержки
+  существующих конфигураций.
+\end{itemize}
+\end{frame}
+
+\section{Цель, гипотеза и
+задачи}\label{ux446ux435ux43bux44c-ux433ux438ux43fux43eux442ux435ux437ux430-ux438-ux437ux430ux434ux430ux447ux438}
+
+\begin{frame}[fragile]{Цель}
+\protect\phantomsection\label{ux446ux435ux43bux44c}
+Освоить работу с менеджером паролей \texttt{pass} и системой управления
+файлами конфигурации \texttt{chezmoi}. Получить навыки безопасного
+хранения паролей, синхронизации их через Git, а также управления
+конфигурационными файлами на нескольких машинах.
+\end{frame}
+
+\begin{frame}[fragile]{Гипотеза}
+\protect\phantomsection\label{ux433ux438ux43fux43eux442ux435ux437ux430}
+Применение \texttt{pass} и \texttt{chezmoi} позволит значительно
+повысить безопасность и воспроизводимость рабочей среды, упростив её
+перенос между устройствами.
+\end{frame}
+
+\begin{frame}[fragile]{Задачи}
+\protect\phantomsection\label{ux437ux430ux434ux430ux447ux438}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Установить и настроить менеджер паролей \texttt{pass} и его расширение
+  \texttt{gopass}.
+\item
+  Сгенерировать GPG-ключ и инициализировать хранилище паролей.
+\item
+  Подключить удалённый Git-репозиторий для синхронизации хранилища.
+\item
+  Установить браузерное расширение \texttt{browserpass} для удобного
+  использования паролей.
+\item
+  Установить \texttt{chezmoi} и создать собственный репозиторий dotfiles
+  на основе шаблона.
+\item
+  Протестировать управление конфигурацией на локальной машине и
+  развернуть её на другой системе.
+\end{itemize}
+\end{frame}
+
+\section{Материалы и
+методы}\label{ux43cux430ux442ux435ux440ux438ux430ux43bux44b-ux438-ux43cux435ux442ux43eux434ux44b}
+
+\begin{frame}{Материалы и методы}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \textbf{Инструменты:}
+
+  \begin{itemize}[<+->]
+  \tightlist
+  \item
+    Менеджер паролей \textbf{pass} (стандартный менеджер паролей Unix).
+  \item
+    Расширенная версия \textbf{gopass} (с дополнительными
+    возможностями).
+  \item
+    Криптографическая система \textbf{GPG} для шифрования паролей.
+  \item
+    Система контроля версий \textbf{Git} и платформа \textbf{GitHub} для
+    синхронизации.
+  \item
+    Браузерное расширение \textbf{browserpass} для интеграции с
+    браузером.
+  \item
+    Инструмент управления dotfiles \textbf{chezmoi}.
+  \item
+    Редактор и утилиты командной строки (установка шрифтов, бинарных
+    файлов).
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Ход
+работы}\label{ux445ux43eux434-ux440ux430ux431ux43eux442ux44b}
+
+\begin{frame}[fragile]{Этап 1: Установка pass и gopass}
+\protect\phantomsection\label{ux44dux442ux430ux43f-1-ux443ux441ux442ux430ux43dux43eux432ux43aux430-pass-ux438-gopass}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Установка менеджера паролей \texttt{pass} из репозитория.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/1.png}
+
+}
+
+\caption{\label{fig-001}Установка pass}
+
+\end{figure}%
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Установка расширенной версии \texttt{gopass}.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/2.png}
+
+}
+
+\caption{\label{fig-002}Установка gopass}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{Этап 2: Настройка GPG и инициализация хранилища}
+\protect\phantomsection\label{ux44dux442ux430ux43f-2-ux43dux430ux441ux442ux440ux43eux439ux43aux430-gpg-ux438-ux438ux43dux438ux446ux438ux430ux43bux438ux437ux430ux446ux438ux44f-ux445ux440ux430ux43dux438ux43bux438ux449ux430}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Просмотр существующих GPG-ключей.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/3.png}
+
+}
+
+\caption{\label{fig-003}Просмотр ключей}
+
+\end{figure}%
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Инициализация хранилища паролей с использованием выбранного ключа.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/4.png}
+
+}
+
+\caption{\label{fig-004}Инициализация хранилища}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{Этап 3: Синхронизация через Git}
+\protect\phantomsection\label{ux44dux442ux430ux43f-3-ux441ux438ux43dux445ux440ux43eux43dux438ux437ux430ux446ux438ux44f-ux447ux435ux440ux435ux437-git}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Создание Git-структуры внутри хранилища.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/5.png}
+
+}
+
+\caption{\label{fig-005}Создание структуры git}
+
+\end{figure}%
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Привязка удалённого репозитория на GitHub.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/6.png}
+
+}
+
+\caption{\label{fig-006}Задание адреса репозитория}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{Этап 4: Добавление пароля и настройка browserpass}
+\protect\phantomsection\label{ux44dux442ux430ux43f-4-ux434ux43eux431ux430ux432ux43bux435ux43dux438ux435-ux43fux430ux440ux43eux43bux44f-ux438-ux43dux430ux441ux442ux440ux43eux439ux43aux430-browserpass}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Добавление нового пароля в хранилище.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/8.png}
+
+}
+
+\caption{\label{fig-008}Добавление нового пароля}
+
+\end{figure}%
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Настройка интерфейса для взаимодействия с браузером (browserpass).
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/7.png}
+
+}
+
+\caption{\label{fig-007}Настройка интерфейса для браузера}
+
+\end{figure}%
+\end{frame}
+
+\section{Ход работы --- установка и настройка
+chezmoi}\label{ux445ux43eux434-ux440ux430ux431ux43eux442ux44b-ux443ux441ux442ux430ux43dux43eux432ux43aux430-ux438-ux43dux430ux441ux442ux440ux43eux439ux43aux430-chezmoi}
+
+\begin{frame}{Этап 5: Установка chezmoi и создание репозитория dotfiles}
+\protect\phantomsection\label{ux44dux442ux430ux43f-5-ux443ux441ux442ux430ux43dux43eux432ux43aux430-chezmoi-ux438-ux441ux43eux437ux434ux430ux43dux438ux435-ux440ux435ux43fux43eux437ux438ux442ux43eux440ux438ux44f-dotfiles}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Установка дополнительного ПО (chezmoi, шрифты, бинарные файлы).
+\end{itemize}
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio,alt={Установка дополнительного ПО}]{image/9.png}
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio,alt={Установка шрифтов}]{image/10.png}
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Создание собственного репозитория dotfiles с помощью утилит chezmoi.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/12.png}
+
+}
+
+\caption{\label{fig-012}Создание репозитория с помощью утилит}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{Этап 6: Подключение репозитория и работа на другой машине}
+\protect\phantomsection\label{ux44dux442ux430ux43f-6-ux43fux43eux434ux43aux43bux44eux447ux435ux43dux438ux435-ux440ux435ux43fux43eux437ux438ux442ux43eux440ux438ux44f-ux438-ux440ux430ux431ux43eux442ux430-ux43dux430-ux434ux440ux443ux433ux43eux439-ux43cux430ux448ux438ux43dux435}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Подключение созданного репозитория к текущей системе.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/13.png}
+
+}
+
+\caption{\label{fig-013}Подключение репозитория к системе}
+
+\end{figure}%
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  На второй машине инициализация chezmoi с тем же репозиторием dotfiles.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/14.png}
+
+}
+
+\caption{\label{fig-014}Инициализация chezmoi с репозиторием dotfiles}
+
+\end{figure}%
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Добавление параметров autoCommit и autoPush в конфигурацию для
+  автоматической синхронизации.
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{image/15.png}
+
+}
+
+\caption{\label{fig-015}Добавление autoCommit и autoPush в конфигурацию}
+
+\end{figure}%
+\end{frame}
+
+\section{Результаты и
+анализ}\label{ux440ux435ux437ux443ux43bux44cux442ux430ux442ux44b-ux438-ux430ux43dux430ux43bux438ux437}
+
+\begin{frame}[fragile]{Анализ достигнутых результатов}
+\protect\phantomsection\label{ux430ux43dux430ux43bux438ux437-ux434ux43eux441ux442ux438ux433ux43dux443ux442ux44bux445-ux440ux435ux437ux443ux43bux44cux442ux430ux442ux43eux432}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Создано зашифрованное хранилище паролей на базе \texttt{pass},
+  инициализировано с GPG-ключом и связано с удалённым Git-репозиторием.
+\item
+  Пароли успешно добавляются, извлекаются и синхронизируются между
+  устройствами.
+\item
+  Настроено браузерное расширение \texttt{browserpass}, позволяющее
+  автоматически подставлять пароли на веб-сайтах.
+\item
+  С помощью \texttt{chezmoi} создан репозиторий dotfiles, который
+  развёрнут на двух машинах; конфигурация автоматически применяется и
+  отслеживается через Git.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Практическая значимость результатов}
+\protect\phantomsection\label{ux43fux440ux430ux43aux442ux438ux447ux435ux441ux43aux430ux44f-ux437ux43dux430ux447ux438ux43cux43eux441ux442ux44c-ux440ux435ux437ux443ux43bux44cux442ux430ux442ux43eux432}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Полученная инфраструктура обеспечивает высокий уровень безопасности
+  учётных данных и лёгкость восстановления окружения при смене
+  оборудования.
+\item
+  Навыки работы с \texttt{chezmoi} позволяют эффективно поддерживать
+  единообразие конфигураций в команде или на личных устройствах.
+\item
+  Достигнутая автоматизация (autoCommit/autoPush) минимизирует ручные
+  операции при изменении конфигураций.
+\end{itemize}
+\end{frame}
+
+\section{Выводы}\label{ux432ux44bux432ux43eux434ux44b}
+
+\begin{frame}[fragile]{Общее заключение}
+\protect\phantomsection\label{ux43eux431ux449ux435ux435-ux437ux430ux43aux43bux44eux447ux435ux43dux438ux435}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  В ходе лабораторной работы освоены современные инструменты для
+  безопасного хранения паролей (\texttt{pass}, \texttt{gopass}) и
+  централизованного управления конфигурационными файлами
+  (\texttt{chezmoi}).
+\item
+  На практике опробованы: генерация и использование GPG-ключей,
+  инициализация и синхронизация хранилища паролей через Git, интеграция
+  pass с браузером, создание собственного репозитория dotfiles,
+  применение шаблонов и работа с chezmoi на нескольких машинах.
+\item
+  Цель работы достигнута, гипотеза подтверждена: использование данных
+  инструментов делает рабочую среду безопаснее и воспроизводимее.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Выводы}
+\protect\phantomsection\label{ux432ux44bux432ux43eux434ux44b-1}
+\begin{enumerate}[<+->]
+\tightlist
+\item
+  Менеджер паролей \texttt{pass} в сочетании с Git и GPG предоставляет
+  простое, но надёжное решение для хранения и синхронизации паролей.
+\item
+  Расширение \texttt{browserpass} существенно упрощает повседневное
+  использование паролей в браузере.
+\item
+  \texttt{Chezmoi} эффективно решает задачу управления dotfiles
+  благодаря шаблонам и интеграции с Git.
+\item
+  Автоматическая фиксация и отправка изменений (autoCommit/autoPush)
+  снижают риск рассинхронизации конфигураций.
+\item
+  Полученные компетенции могут быть непосредственно применены в учебной,
+  научной и профессиональной деятельности для организации безопасной и
+  переносимой рабочей среды.
+\end{enumerate}
+\end{frame}
+
+
+
+
+\end{document}
