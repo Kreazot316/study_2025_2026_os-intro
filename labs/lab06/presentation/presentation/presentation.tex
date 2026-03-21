@@ -1,0 +1,850 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  ignorenonframetext,
+  aspectratio=169,
+  russian,
+  aspectratio=169]{beamer}
+\newif\ifbibliography
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolshorizontal
+% remove section numbering
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{section title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{subsection title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+
+\usefonttheme{serif} % use mainfont rather than sansfont for slide text
+\ifPDFTeX\else
+  % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
+  \setsansfont[]{DejaVu Sans}
+  \setmonofont[]{DejaVu Sans Mono}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+
+
+\usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
+\usepackage{calc} % for calculating minipage widths
+\usepackage{caption}
+% Make caption package work with longtable
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic,shorthands=off,provide=*]{babel}
+\else
+\usepackage[bidi=default,shorthands=off,provide=*]{babel}
+\fi
+\ifPDFTeX
+\else
+\babelfont{rm}[]{DejaVu Serif}
+\fi
+\ifLuaTeX
+  \usepackage{selnolig} % disable illegal ligatures
+\fi
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+\usepackage[]{csquotes}
+
+\IfFileExists{plex-otf.sty}{
+  %% Full TeXlive
+  % \usepackage[%
+  %   % math,
+  %   RM={Scale=0.94},SS={Scale=0.94},SScon={Scale=0.94},TT={Scale=MatchLowercase,FakeStretch=0.9},DefaultFeatures={Ligatures=Common}
+  % ]{plex-otf}
+}{
+  %% TinyTeX
+  \usepackage{libertine}
+}
+
+%%% Load theme
+% https://deic.uab.cat/~iblanes/beamer_gallery/
+\IfFileExists{beamerthemegotham.sty}{
+  %% Full TeXlive
+  \usetheme{gotham}
+  \gothamset{
+    numbering=totalpagenumber,
+    parttocframe default=off,
+    sectiontocframe default=off,
+    subsectiontocframe default=off,
+  }
+}{
+  %% TinyTeX
+  \usetheme{Madrid}
+}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Содержание}
+\else
+  \newcommand\contentsname{Содержание}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Список иллюстраций}
+\else
+  \newcommand\listfigurename{Список иллюстраций}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Список таблиц}
+\else
+  \newcommand\listtablename{Список таблиц}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Рисунок}
+\else
+  \newcommand\figurename{Рисунок}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Таблица}
+\else
+  \newcommand\tablename{Таблица}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Список}
+\newcommand*\listoflistings{\listof{codelisting}{Листинги}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Выполнение лабораторной работы №6},
+  pdfauthor={Карпухин Клим},
+  pdflang={ru-RU},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{\texorpdfstring{Выполнение лабораторной работы
+№6}{Выполнение лабораторной работы №6}}
+\subtitle{\texorpdfstring{Основы интерфейса взаимодействия пользователя
+с системой Unix на уровне командной
+строки.}{Основы интерфейса взаимодействия пользователя с системой Unix на уровне командной строки.}}
+\author{Карпухин Клим}
+\date{2026-03-21}
+
+\begin{document}
+\frame{\titlepage}
+
+
+\section{Содержание}\label{ux441ux43eux434ux435ux440ux436ux430ux43dux438ux435}
+
+\begin{frame}{Содержание}
+\begin{enumerate}[<+->]
+\tightlist
+\item
+  Информация о докладчике
+\item
+  Вводная часть и актуальность
+\item
+  Объект и предмет исследования
+\item
+  Научная новизна и практическая значимость
+\item
+  Цель, гипотеза и задачи
+\item
+  Материалы, методы и инструменты
+\item
+  Ход работы (этапы, скриншоты)
+\item
+  Результаты и анализ
+\item
+  Выводы
+\end{enumerate}
+\end{frame}
+
+\section{Информация}\label{ux438ux43dux444ux43eux440ux43cux430ux446ux438ux44f}
+
+\begin{frame}{Докладчик}
+\protect\phantomsection\label{ux434ux43eux43aux43bux430ux434ux447ux438ux43a}
+\begin{columns}[c]
+\begin{column}{0.65\linewidth}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \textbf{Карпухин Клим}
+\item
+  Российский университет дружбы народов
+\item
+  Email:
+  \href{mailto:1032255580@rudn.ru}{\nolinkurl{1032255580@rudn.ru}}
+\item
+  Роли: студент (лабораторная работа по ОС/виртуализации)
+\end{itemize}
+\end{column}
+
+\begin{column}{0.35\linewidth}
+\includegraphics[width=0.9\linewidth,height=\textheight,keepaspectratio]{./image/dokladchik.png}
+\end{column}
+\end{columns}
+\end{frame}
+
+\section{Вводная
+часть}\label{ux432ux432ux43eux434ux43dux430ux44f-ux447ux430ux441ux442ux44c}
+
+\begin{frame}[fragile]{Актуальность}
+\protect\phantomsection\label{ux430ux43aux442ux443ux430ux43bux44cux43dux43eux441ux442ux44c}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Командная строка остаётся одним из основных инструментов работы в
+  Linux, особенно при администрировании, разработке и настройке системы.
+\item
+  Умение работать с каталогами, файлами, справкой \texttt{man} и
+  историей команд позволяет быстрее и точнее выполнять типовые операции
+  без графического интерфейса.
+\item
+  Освоение базовых команд \texttt{cd}, \texttt{pwd}, \texttt{ls},
+  \texttt{mkdir}, \texttt{rmdir}, \texttt{rm}, \texttt{history}
+  формирует фундамент для дальнейшего изучения Unix-подобных систем.
+\item
+  Работа в Fedora Sway особенно хорошо демонстрирует, что даже в
+  современном графическом окружении терминал остаётся незаменимым
+  инструментом.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Объект и предмет исследования}
+\protect\phantomsection\label{ux43eux431ux44aux435ux43aux442-ux438-ux43fux440ux435ux434ux43cux435ux442-ux438ux441ux441ux43bux435ux434ux43eux432ux430ux43dux438ux44f}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \textbf{Объект:} процесс взаимодействия пользователя с операционной
+  системой Linux через командную строку.
+\item
+  \textbf{Предмет:} базовые команды оболочки Unix/Linux, применяемые для
+  навигации по файловой системе, управления каталогами, просмотра
+  справки и работы с историей команд.
+\end{itemize}
+\end{frame}
+
+\section{Научная новизна и практическая
+значимость}\label{ux43dux430ux443ux447ux43dux430ux44f-ux43dux43eux432ux438ux437ux43dux430-ux438-ux43fux440ux430ux43aux442ux438ux447ux435ux441ux43aux430ux44f-ux437ux43dux430ux447ux438ux43cux43eux441ux442ux44c}
+
+\begin{frame}[fragile]{Научная новизна}
+\protect\phantomsection\label{ux43dux430ux443ux447ux43dux430ux44f-ux43dux43eux432ux438ux437ux43dux430}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Изучение поведения стандартных команд Unix/Linux в реальной среде
+  Fedora Sway.
+\item
+  Сравнение разных режимов вывода команды \texttt{ls} для анализа
+  структуры каталогов.
+\item
+  Практическая демонстрация способов работы с историей команд и
+  модификации ранее введённых команд.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Практическая значимость работы}
+\protect\phantomsection\label{ux43fux440ux430ux43aux442ux438ux447ux435ux441ux43aux430ux44f-ux437ux43dux430ux447ux438ux43cux43eux441ux442ux44c-ux440ux430ux431ux43eux442ux44b}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Полученные навыки позволяют уверенно работать в терминале без опоры на
+  графический интерфейс.
+\item
+  Освоение командной строки ускоряет выполнение рутинных операций с
+  файлами и каталогами.
+\item
+  Понимание справочной системы \texttt{man} помогает самостоятельно
+  изучать новые команды и их параметры.
+\item
+  Навык использования \texttt{history} упрощает повторное выполнение и
+  редактирование команд.
+\end{itemize}
+\end{frame}
+
+\section{Цель, гипотеза и
+задачи}\label{ux446ux435ux43bux44c-ux433ux438ux43fux43eux442ux435ux437ux430-ux438-ux437ux430ux434ux430ux447ux438}
+
+\begin{frame}{Цель}
+\protect\phantomsection\label{ux446ux435ux43bux44c}
+Освоить базовые команды командной строки Unix/Linux, научиться работать
+с файловой системой, справочной системой и историей команд.
+\end{frame}
+
+\begin{frame}[fragile]{Гипотеза}
+\protect\phantomsection\label{ux433ux438ux43fux43eux442ux435ux437ux430}
+Если освоить основные команды оболочки Linux и научиться пользоваться
+справкой \texttt{man} и историей \texttt{history}, то работа в терминале
+станет быстрее, удобнее и надёжнее.
+\end{frame}
+
+\begin{frame}[fragile]{Задачи}
+\protect\phantomsection\label{ux437ux430ux434ux430ux447ux438}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Определить полный путь домашнего каталога.
+\item
+  Перейти в каталог \texttt{/tmp} и изучить его содержимое с помощью
+  \texttt{ls}.
+\item
+  Проверить наличие каталога \texttt{cron} в \texttt{/var/spool}.
+\item
+  Создать и удалить каталоги с помощью \texttt{mkdir}, \texttt{rmdir} и
+  \texttt{rm}.
+\item
+  Определить опции \texttt{ls} для рекурсивного просмотра и сортировки
+  по времени.
+\item
+  Изучить справку по командам \texttt{cd}, \texttt{pwd}, \texttt{mkdir},
+  \texttt{rmdir}, \texttt{rm}.
+\item
+  Использовать \texttt{history} для повторного выполнения и изменения
+  ранее введённых команд.
+\end{itemize}
+\end{frame}
+
+\section{Материалы и
+методы}\label{ux43cux430ux442ux435ux440ux438ux430ux43bux44b-ux438-ux43cux435ux442ux43eux434ux44b}
+
+\begin{frame}[fragile]{Материалы и методы}
+\protect\phantomsection\label{ux43cux430ux442ux435ux440ux438ux430ux43bux44b-ux438-ux43cux435ux442ux43eux434ux44b-1}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \textbf{Операционная система:} Fedora Linux.
+\item
+  \textbf{Окружение рабочего стола:} Sway.
+\item
+  \textbf{Инструменты:}
+
+  \begin{itemize}[<+->]
+  \tightlist
+  \item
+    терминал;
+  \item
+    команда \texttt{pwd};
+  \item
+    команда \texttt{ls} с различными опциями;
+  \item
+    команда \texttt{cd};
+  \item
+    команды \texttt{mkdir}, \texttt{rmdir}, \texttt{rm};
+  \item
+    команда \texttt{man};
+  \item
+    команда \texttt{history}.
+  \end{itemize}
+\item
+  \textbf{Методика:} последовательное выполнение команд в терминале с
+  фиксацией результата на скриншотах и анализом вывода.
+\end{itemize}
+\end{frame}
+
+\section{Ход
+работы}\label{ux445ux43eux434-ux440ux430ux431ux43eux442ux44b}
+
+\section{Ход работы --- выполнение
+заданий}\label{ux445ux43eux434-ux440ux430ux431ux43eux442ux44b-ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux437ux430ux434ux430ux43dux438ux439}
+
+\begin{frame}{Этап 1: Определение домашнего каталога}
+\protect\phantomsection\label{ux44dux442ux430ux43f-1-ux43eux43fux440ux435ux434ux435ux43bux435ux43dux438ux435-ux434ux43eux43cux430ux448ux43dux435ux433ux43e-ux43aux430ux442ux430ux43bux43eux433ux430}
+Определил полное имя моего домашнего каталога. (рис.~\ref{fig-001}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/1.png}
+
+}
+
+\caption{\label{fig-001}Определение полного имени моего домашнего
+каталога}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}[fragile]{Этап 2: Работа с каталогом \texttt{/tmp}}
+\protect\phantomsection\label{ux44dux442ux430ux43f-2-ux440ux430ux431ux43eux442ux430-ux441-ux43aux430ux442ux430ux43bux43eux433ux43eux43c-tmp}
+\begin{block}{2.1 Переход в каталог \texttt{/tmp}}
+\protect\phantomsection\label{ux43fux435ux440ux435ux445ux43eux434-ux432-ux43aux430ux442ux430ux43bux43eux433-tmp}
+Перешёл в каталог \texttt{/tmp}. (рис.~\ref{fig-002}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/2.png}
+
+}
+
+\caption{\label{fig-002}Переход в каталог /tmp}
+
+\end{figure}%
+\end{block}
+
+\begin{block}{2.2 Просмотр содержимого каталога \texttt{/tmp}}
+\protect\phantomsection\label{ux43fux440ux43eux441ux43cux43eux442ux440-ux441ux43eux434ux435ux440ux436ux438ux43cux43eux433ux43e-ux43aux430ux442ux430ux43bux43eux433ux430-tmp}
+Вывел на экран содержимое каталога \texttt{/tmp} командой \texttt{ls}.
+(рис.~\ref{fig-003}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/3.png}
+
+}
+
+\caption{\label{fig-003}Вывод содержимого каталога /tmp командой
+\texttt{ls}}
+
+\end{figure}%
+
+Также были использованы различные опции команды \texttt{ls} для
+получения более подробной информации о содержимом каталога
+\texttt{/tmp}:
+
+\begin{verbatim}
+ls -a
+ls -l
+ls -F
+ls -alF
+\end{verbatim}
+
+Обычная команда \texttt{ls} показывает только имена файлов и каталогов.
+Опция \texttt{-a} добавляет скрытые файлы и каталоги, имена которых
+начинаются с точки. Опция \texttt{-l} выводит подробную информацию:
+права доступа, число ссылок, владельца, группу, размер и дату изменения.
+Опция \texttt{-F} добавляет символ, указывающий тип объекта: \texttt{/}
+для каталога, \texttt{*} для исполняемого файла, \texttt{@} для
+символической ссылки. Комбинированный вариант \texttt{ls\ -alF}
+объединяет все эти возможности.
+\end{block}
+
+\begin{block}{2.3 Проверка наличия каталога \texttt{cron}}
+\protect\phantomsection\label{ux43fux440ux43eux432ux435ux440ux43aux430-ux43dux430ux43bux438ux447ux438ux44f-ux43aux430ux442ux430ux43bux43eux433ux430-cron}
+Определил, есть ли в каталоге \texttt{/var/spool} подкаталог с именем
+\texttt{cron}. (рис.~\ref{fig-004}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/4.png}
+
+}
+
+\caption{\label{fig-004}Определение наличия каталога /var/spool/cron}
+
+\end{figure}%
+\end{block}
+
+\begin{block}{2.4 Просмотр домашнего каталога}
+\protect\phantomsection\label{ux43fux440ux43eux441ux43cux43eux442ux440-ux434ux43eux43cux430ux448ux43dux435ux433ux43e-ux43aux430ux442ux430ux43bux43eux433ux430}
+Перешёл в мой домашний каталог и вывел на экран его содержимое.
+(рис.~\ref{fig-005}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/5.png}
+
+}
+
+\caption{\label{fig-005}Переход в домашний каталог, вывод содержимого}
+
+\end{figure}%
+
+Вывод \texttt{ls\ -l} позволил определить владельца файлов и
+подкаталогов. В соответствующем столбце отображается имя пользователя,
+которому принадлежат объекты файловой системы.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Этап 3: Создание и удаление каталогов}
+\protect\phantomsection\label{ux44dux442ux430ux43f-3-ux441ux43eux437ux434ux430ux43dux438ux435-ux438-ux443ux434ux430ux43bux435ux43dux438ux435-ux43aux430ux442ux430ux43bux43eux433ux43eux432}
+\begin{block}{3.1 Создание каталога \texttt{newdir}}
+\protect\phantomsection\label{ux441ux43eux437ux434ux430ux43dux438ux435-ux43aux430ux442ux430ux43bux43eux433ux430-newdir}
+В домашнем каталоге создал новый каталог с именем \texttt{newdir}.
+(рис.~\ref{fig-006}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/6.png}
+
+}
+
+\caption{\label{fig-006}Создание каталога newdir}
+
+\end{figure}%
+\end{block}
+
+\begin{block}{3.2 Создание каталога \texttt{morefun}}
+\protect\phantomsection\label{ux441ux43eux437ux434ux430ux43dux438ux435-ux43aux430ux442ux430ux43bux43eux433ux430-morefun}
+В каталоге \texttt{\textasciitilde{}/newdir} создал новый каталог с
+именем \texttt{morefun}. (рис.~\ref{fig-007}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/7.png}
+
+}
+
+\caption{\label{fig-007}Создание каталога morefun}
+
+\end{figure}%
+\end{block}
+
+\begin{block}{3.3 Создание трёх каталогов одной командой}
+\protect\phantomsection\label{ux441ux43eux437ux434ux430ux43dux438ux435-ux442ux440ux451ux445-ux43aux430ux442ux430ux43bux43eux433ux43eux432-ux43eux434ux43dux43eux439-ux43aux43eux43cux430ux43dux434ux43eux439}
+В домашнем каталоге создал одной командой три новых каталога с именами
+\texttt{letters}, \texttt{memos}, \texttt{misk}. (рис.~\ref{fig-008}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/8.png}
+
+}
+
+\caption{\label{fig-008}Создание трёх каталогов одной командой}
+
+\end{figure}%
+
+Затем удалил эти каталоги одной командой. (рис.~\ref{fig-009}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/9.png}
+
+}
+
+\caption{\label{fig-009}Удаление трёх каталогов одной командой}
+
+\end{figure}%
+\end{block}
+
+\begin{block}{3.4 Попытка удалить каталог \texttt{newdir} командой
+\texttt{rm}}
+\protect\phantomsection\label{ux43fux43eux43fux44bux442ux43aux430-ux443ux434ux430ux43bux438ux442ux44c-ux43aux430ux442ux430ux43bux43eux433-newdir-ux43aux43eux43cux430ux43dux434ux43eux439-rm}
+Попробовал удалить ранее созданный каталог
+\texttt{\textasciitilde{}/newdir} командой \texttt{rm}. Каталог не был
+удалён. (рис.~\ref{fig-010}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/10.png}
+
+}
+
+\caption{\label{fig-010}Попытка удалить каталог newdir командой rm}
+
+\end{figure}%
+\end{block}
+
+\begin{block}{3.5 Удаление каталога \texttt{morefun}}
+\protect\phantomsection\label{ux443ux434ux430ux43bux435ux43dux438ux435-ux43aux430ux442ux430ux43bux43eux433ux430-morefun}
+Удалил каталог \texttt{\textasciitilde{}/newdir/morefun} из домашнего
+каталога. Каталог был удалён. (рис.~\ref{fig-011}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/11.png}
+
+}
+
+\caption{\label{fig-011}Удаление каталога morefun}
+
+\end{figure}%
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Этап 4: Работа со справкой \texttt{man}}
+\protect\phantomsection\label{ux44dux442ux430ux43f-4-ux440ux430ux431ux43eux442ux430-ux441ux43e-ux441ux43fux440ux430ux432ux43aux43eux439-man}
+\begin{block}{4.1 Опция для рекурсивного просмотра}
+\protect\phantomsection\label{ux43eux43fux446ux438ux44f-ux434ux43bux44f-ux440ux435ux43aux443ux440ux441ux438ux432ux43dux43eux433ux43e-ux43fux440ux43eux441ux43cux43eux442ux440ux430}
+С помощью команды \texttt{man\ ls} нашёл опцию для просмотра содержимого
+не только указанного каталога, но и подкаталогов, входящих в него:
+\texttt{ls\ -R}. (рис.~\ref{fig-012}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/12.png}
+
+}
+
+\caption{\label{fig-012}Опция для рекурсивного просмотра содержимого
+каталогов}
+
+\end{figure}%
+\end{block}
+
+\begin{block}{4.2 Опции для сортировки по времени}
+\protect\phantomsection\label{ux43eux43fux446ux438ux438-ux434ux43bux44f-ux441ux43eux440ux442ux438ux440ux43eux432ux43aux438-ux43fux43e-ux432ux440ux435ux43cux435ux43dux438}
+С помощью команды \texttt{man\ ls} нашёл опции, позволяющие
+отсортировать по времени последнего изменения выводимый список
+содержимого каталога с развёрнутым описанием файлов: \texttt{ls\ -lt}.
+(рис.~\ref{fig-013}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/13.png}
+
+}
+
+\caption{\label{fig-013}Опции для сортировки по времени}
+
+\end{figure}%
+\end{block}
+
+\begin{block}{4.3 Просмотр описания основных команд}
+\protect\phantomsection\label{ux43fux440ux43eux441ux43cux43eux442ux440-ux43eux43fux438ux441ux430ux43dux438ux44f-ux43eux441ux43dux43eux432ux43dux44bux445-ux43aux43eux43cux430ux43dux434}
+Использовал команду \texttt{man} для просмотра описания следующих
+команд: \texttt{cd}, \texttt{pwd}, \texttt{mkdir}, \texttt{rmdir},
+\texttt{rm}. (рис.~\ref{fig-014}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/14.png}
+
+}
+
+\caption{\label{fig-014}Просмотр описания команды cd}
+
+\end{figure}%
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \texttt{cd} --- переход в другой каталог. Без аргументов переходит в
+  домашний каталог, \texttt{cd\ ..} поднимает на уровень выше.
+\item
+  \texttt{pwd} --- выводит абсолютный путь текущего каталога.
+\item
+  \texttt{mkdir} --- создаёт каталоги. Опция \texttt{-p} позволяет
+  создавать промежуточные каталоги.
+\item
+  \texttt{rmdir} --- удаляет только пустые каталоги.
+\item
+  \texttt{rm} --- удаляет файлы. Для удаления каталогов используется
+  \texttt{-r}, а для подтверждения удаления --- \texttt{-i}.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Этап 5: Использование истории команд}
+\protect\phantomsection\label{ux44dux442ux430ux43f-5-ux438ux441ux43fux43eux43bux44cux437ux43eux432ux430ux43dux438ux435-ux438ux441ux442ux43eux440ux438ux438-ux43aux43eux43cux430ux43dux434}
+Используя информацию, полученную при помощи команды \texttt{history},
+выполнил модификацию и исполнение нескольких команд из буфера команд.
+(рис.~\ref{fig-015}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/15.png}
+
+}
+
+\caption{\label{fig-015}Использование команды history для повторного
+выполнения команд}
+
+\end{figure}%
+\end{frame}
+
+\section{Результаты и
+анализ}\label{ux440ux435ux437ux443ux43bux44cux442ux430ux442ux44b-ux438-ux430ux43dux430ux43bux438ux437}
+
+\begin{frame}[fragile]{Анализ достигнутых результатов}
+\protect\phantomsection\label{ux430ux43dux430ux43bux438ux437-ux434ux43eux441ux442ux438ux433ux43dux443ux442ux44bux445-ux440ux435ux437ux443ux43bux44cux442ux430ux442ux43eux432}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Определён полный путь домашнего каталога.
+\item
+  Освоен переход между каталогами и просмотр содержимого файловой
+  системы.
+\item
+  Изучены различия между вариантами команды \texttt{ls}.
+\item
+  Проверено наличие системного каталога \texttt{cron} в
+  \texttt{/var/spool}.
+\item
+  Получен практический опыт создания и удаления каталогов.
+\item
+  Использована справка \texttt{man} для поиска нужных опций команд.
+\item
+  Опробована работа с историей команд \texttt{history}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Практическая значимость результатов}
+\protect\phantomsection\label{ux43fux440ux430ux43aux442ux438ux447ux435ux441ux43aux430ux44f-ux437ux43dux430ux447ux438ux43cux43eux441ux442ux44c-ux440ux435ux437ux443ux43bux44cux442ux430ux442ux43eux432}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Я научился уверенно ориентироваться в файловой системе Linux.
+\item
+  Освоил базовые операции, необходимые для повседневной работы в
+  терминале.
+\item
+  Получил представление о том, как быстро искать информацию о командах и
+  их параметрах.
+\item
+  На практике увидел, чем отличаются команды \texttt{rm} и
+  \texttt{rmdir}, а также как удобно использовать историю команд.
+\end{itemize}
+\end{frame}
+
+\section{Выводы}\label{ux432ux44bux432ux43eux434ux44b}
+
+\begin{frame}{Общее заключение}
+\protect\phantomsection\label{ux43eux431ux449ux435ux435-ux437ux430ux43aux43bux44eux447ux435ux43dux438ux435}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  В ходе лабораторной работы я освоил основные приёмы работы в командной
+  строке Unix/Linux.
+\item
+  Я научился перемещаться по каталогам, просматривать содержимое
+  каталогов в разных режимах, создавать и удалять каталоги, пользоваться
+  справочной системой и историей команд.
+\item
+  Полученные навыки являются базой для дальнейшей работы в Linux и
+  позволяют эффективнее выполнять задачи в терминале.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Выводы}
+\protect\phantomsection\label{ux432ux44bux432ux43eux434ux44b-1}
+\begin{enumerate}[<+->]
+\tightlist
+\item
+  Командная строка является основным инструментом управления системой
+  Unix/Linux.
+\item
+  Команда \texttt{pwd} позволяет определить абсолютный путь текущего
+  каталога.
+\item
+  Команда \texttt{ls} с различными опциями даёт удобный способ анализа
+  содержимого каталогов.
+\item
+  Команды \texttt{mkdir}, \texttt{rmdir} и \texttt{rm} позволяют
+  создавать и удалять каталоги при соблюдении их особенностей.
+\item
+  Команда \texttt{man} помогает самостоятельно изучать синтаксис и опции
+  команд.
+\item
+  Команда \texttt{history} ускоряет работу за счёт повторного
+  использования и изменения ранее введённых команд.
+\end{enumerate}
+\end{frame}
+
+
+
+
+\end{document}
